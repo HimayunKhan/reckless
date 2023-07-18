@@ -7,6 +7,7 @@ import Sidebar from "../layouts/Sidebar";
 import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const UpdateAddress = ({ id, address }) => {
   const {
@@ -20,14 +21,14 @@ const UpdateAddress = ({ id, address }) => {
 
   const countriesList = Object.values(countries);
 
-  const [street, setStreet] = useState(address.street);
-  const [city, setCity] = useState(address.city);
-  const [state, setState] = useState(address.state);
-  const [zipCode, setZipCode] = useState(address.zipCode);
-  const [phoneNo, setPhonoNo] = useState(address.phoneNo);
-  const [country, setCountry] = useState(address.country);
+  const [street, setStreet] = useState(address?.street);
+  const [city, setCity] = useState(address?.city);
+  const [state, setState] = useState(address?.state);
+  const [zipCode, setZipCode] = useState(address?.zipCode);
+  const [phoneNo, setPhonoNo] = useState(address?.phoneNo);
+  const [country, setCountry] = useState(address?.country);
 
-  console.log("updated", updated);
+const router=useRouter()
 
   useEffect(() => {
     if (updated) {
@@ -54,6 +55,7 @@ const UpdateAddress = ({ id, address }) => {
     };
 
     updateAddress(id, newAddress);
+    router.push("/me")
   };
 
   const deleteHandler = () => {

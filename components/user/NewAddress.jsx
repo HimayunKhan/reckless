@@ -4,10 +4,11 @@ import React, { useState, useContext, useEffect } from "react";
 import Sidebar from "../layouts/Sidebar";
 import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 const NewAddress = () => {
   const { error, addNewAddress, clearErrors } = useContext(AuthContext);
-
+  const router=useRouter()
   const countriesList = Object.values(countries);
 
   const [street, setStreet] = useState("");
@@ -37,6 +38,7 @@ const NewAddress = () => {
     };
 
     addNewAddress(newAddress);
+    // router.push("/me")
   };
 
   return (

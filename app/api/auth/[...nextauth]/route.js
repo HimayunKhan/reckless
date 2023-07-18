@@ -64,7 +64,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { mongooseConnect } from "@/lib/mongoose";
 
-const authOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -95,8 +95,14 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user,session,trigger }) => {
       user && (token.user = user);
+
+      if(trigger=="update"){
+        return [...token,...session.user]
+      }
+
+    
 
       // if (req.url === "/api/auth/session?update") {
       //   // hit the db and eturn the updated user
@@ -104,11 +110,15 @@ const authOptions = {
       //   const updatedUser = await User.findById(token.user._id);
       //   token.user = updatedUser;
       // }
-
+      
+  
       return token;
     },
     session: async ({ session, token }) => {
       session.user = token.user;
+
+     
+
 
       // delete password from session
       delete session?.user?.password;
@@ -125,6 +135,7 @@ const authOptions = {
 };
 
 const handler = NextAuth(authOptions);
+
 
 export { handler as GET, handler as POST };
 

@@ -4,120 +4,46 @@ import fs from "fs";
 import ErrorHandler from "../utils/errorHandler";
 import bcrypt from "bcryptjs";
 import APIFilters from "../utils/APIFilters";
+import createErrorResponse from "../middlewares/errors";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
-export const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
-
-  res.status(201).json({
-    user,
-  });
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
 
 export const updateProfile = async (req, res) => {
-  const newUserData = {
-    name: req.body.name,
-    email: req.body.email,
-  };
+  try {
+    const session = await getServerSession(authOptions);
+    const userID = session?.user?.id;
 
-  if (req.files.length > 0) {
-    const uploader = async (path) => await uploads(path, "buyitnow/avatars");
+  
+    const formData = await req.formData();
+    const newUserData = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+    };
 
-    const file = req.files[0];
-    const { path } = file;
+    console.log("himaaaaaaaaaaa", newUserData.name, newUserData.email);
 
-    const avatarResponse = await uploader(path);
-    fs.unlinkSync(path);
-    newUserData.avatar = avatarResponse;
+    if (formData.has("image")) {
+      const file = formData.get("image");
+
+      const { buffer, name, path } = file;
+      const uploader = async (path) => await uploads(path, "buyitnow/avatars");
+
+      const avatarResponse = await uploader(path);
+      newUserData.avatar = avatarResponse;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userID, newUserData);
+
+    return NextResponse.json({ user: updatedUser });
+  } catch (error) {
+    return createErrorResponse(error);
   }
-
-  const user = await User.findByIdAndUpdate(req.user._id, newUserData);
-
-  res.status(200).json({
-    user,
-  });
-};
-
-export const updatePassword = async (req, res, next) => {
-  const user = await User.findById(req.user._id).select("+password");
-
-  const isPasswordMatched = await bcrypt.compare(
-    req.body.currentPassword,
-    user.password
-  );
-
-  if (!isPasswordMatched) {
-    return next(new ErrorHandler("Old password is incorrect", 400));
-  }
-
-  user.password = req.body.newPassword;
-  await user.save();
-
-  res.status(200).json({
-    sucess: true,
-  });
-};
-
-export const getUsers = async (req, res) => {
-  const resPerPage = 2;
-  const usersCount = await User.countDocuments();
-
-  const apiFilters = new APIFilters(User.find(), req.query).pagination(
-    resPerPage
-  );
-
-  const users = await apiFilters.query;
-
-  res.status(200).json({
-    usersCount,
-    resPerPage,
-    users,
-  });
-};
-
-export const getUser = async (req, res) => {
-  let user = await User.findById(req.query.id);
-
-  if (!user) {
-    return next(new ErrorHandler("No user found with this ID", 404));
-  }
-
-  res.status(200).json({
-    success: true,
-    user,
-  });
-};
-
-export const updateUser = async (req, res) => {
-  let user = await User.findById(req.query.id);
-
-  if (!user) {
-    return next(new ErrorHandler("No user found with this ID", 404));
-  }
-
-  user = await User.findByIdAndUpdate(req.query.id, req.body.userData);
-
-  res.status(200).json({
-    success: true,
-    user,
-  });
-};
-
-export const deleteUser = async (req, res) => {
-  let user = await User.findById(req.query.id);
-
-  if (!user) {
-    return next(new ErrorHandler("No User found with this ID", 404));
-  }
-
-  await user.deleteOne();
-
-  res.status(200).json({
-    success: true,
-  });
 };

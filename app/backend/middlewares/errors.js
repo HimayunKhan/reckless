@@ -14,22 +14,49 @@
 
 
 
+// import { NextResponse } from 'next/server';
+
+// export default function createErrorResponse(error) {
+//   const errorResponse = {
+//     success: false,
+//     error: {
+//       statusCode:error.statusCode ||  500,
+//       message: error.message || 'Internal Server Error',
+//       stack: error.stack,
+     
+//     },
+//     message: 'Internal Server Error',
+//     stack: error.stack,
+   
+//   };
+
+//   return new Response(JSON.stringify(errorResponse));
+// }
+
+
+
 import { NextResponse } from 'next/server';
 
 export default function createErrorResponse(error) {
+  let statusCode = error.statusCode || 500;
+  let message = error.message || 'Internal Server Error';
+
+  if (error.code === 11000) {
+    const field = Object.keys(error.keyValue)[0];
+    message = `Duplicate ${field} entered`;
+    statusCode = 400;
+  }
+
   const errorResponse = {
     success: false,
     error: {
-      statusCode:error.statusCode ||  500,
-      message: error.message || 'Internal Server Error',
+      statusCode,
+      message,
       stack: error.stack,
-     
     },
     message: 'Internal Server Error',
     stack: error.stack,
-   
   };
 
   return new Response(JSON.stringify(errorResponse));
 }
-

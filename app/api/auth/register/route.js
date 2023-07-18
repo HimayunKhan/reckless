@@ -7,11 +7,11 @@ export async function POST(request, response) {
   try {
     dbConnect();
     const { name, email, password } = await request.json();
-
     const user = await User.create({
       name,
       email,
       password,
+     
     });
 
     const res = {

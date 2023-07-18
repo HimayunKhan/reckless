@@ -1,11 +1,21 @@
 import multer from "multer";
 
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "public/uploads");
+//   },
+//   filename: function (req, file, cb) {
+    
+//     cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+//   },
+// });
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + "-" + file.originalname);
+    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
   },
 });
 
@@ -22,7 +32,7 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
   storage,
-  limits: { fieldSize: 1024 * 1024 },
+  limits: { fieldSize: 1024 * 1024 * 5 },
   fileFilter,
 });
 

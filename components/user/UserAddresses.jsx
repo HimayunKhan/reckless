@@ -1,7 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 
 const UserAddresses = ({ addresses }) => {
+  useEffect(()=>{
+
+  },[addresses])
 
   return addresses?.map((address) => (
     <Link href={`/address/${address._id}`} key={address._id}>

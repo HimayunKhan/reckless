@@ -25,13 +25,11 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: "User",
   },
-
   createdAt: {
     type: Date,
     default: Date.now,

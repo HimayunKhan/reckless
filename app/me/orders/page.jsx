@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-
 import { cookies } from "next/headers";
 import ListOrders from "@/components/orders/ListOrders";
 import queryString from "query-string";
@@ -30,6 +29,7 @@ const getOrders = async (searchParams) => {
 
 const MyOrdersPage = async ({ searchParams }) => {
   const orders = await getOrders(searchParams);
+
 
   return <ListOrders orders={orders} />;
 };

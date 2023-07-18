@@ -26,3 +26,6 @@ const uploads = (file, folder) => {
 };
 
 export { uploads, cloudinary };
+
+
+

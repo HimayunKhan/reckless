@@ -37,6 +37,12 @@ userSchema.pre("save", async function (next) {
   }
 
   this.password = await bcrypt.hash(this.password, 10);
+
+  
+  this.avatar = {
+    public_id: "default_avatar",
+    url: "https://example.com/default_avatar.png",
+  };
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);

@@ -25,7 +25,7 @@ const Register = () => {
     e.preventDefault();
 
     registerUser({ name, email, password });
-    router.push("/")
+    // router.push("/")
   };
 
   return (

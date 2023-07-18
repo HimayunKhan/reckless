@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import Order from "../models/order";
 import APIFilters from "../utils/APIFilters";
 import ErrorHandler from "../utils/errorHandler";
+import { NextResponse } from "next/server";
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
 export const getOrders = async (req, res) => {
@@ -40,7 +41,7 @@ export const myOrders = async (req, res) => {
   const resPerPage = 2;
   const ordersCount = await Order.countDocuments();
 
-  const apiFilters = new APIFilters(Order.find(), req.query).pagination(
+  const apiFilters = new APIFilters(Order.find(), req.query)?.pagination(
     resPerPage
   );
 
@@ -48,11 +49,21 @@ export const myOrders = async (req, res) => {
     .find({ user: req.user._id })
     .populate("shippingInfo user");
 
-  res.status(200).json({
+  const response = {
+    success: true,
+    message: "fetched orders details successfully",
     ordersCount,
     resPerPage,
     orders,
-  });
+  };
+
+  return NextResponse.json(response);
+
+  // res.status(200).json({
+  //   ordersCount,
+  //   resPerPage,
+  //   orders,
+  // });
 };
 
 export const updateOrder = async (req, res) => {
@@ -107,16 +118,16 @@ export const checkoutSession = async (req, res) => {
   const line_items = body?.items?.map((item) => {
     return {
       price_data: {
-        currency: "usd",
+        currency: "inr",
         product_data: {
-          name: item.name,
-          images: [item.image],
-          metadata: { productId: item.product },
+          name: item?.name,
+          images: [item?.image],
+          metadata: { productId: item?.product },
         },
-        unit_amount: item.price * 100,
+        unit_amount: item?.price * 100,
       },
-      tax_rates: ["txr_1MUVJSAlHMiRMt8E2khIxJEi"],
-      quantity: item.quantity,
+      tax_rates: ["txr_1NV711SHxFudyksW6igP12K8"],
+      quantity: item?.quantity,
     };
   });
 
@@ -132,15 +143,22 @@ export const checkoutSession = async (req, res) => {
     metadata: { shippingInfo },
     shipping_options: [
       {
-        shipping_rate: "shr_1MUVKxAlHMiRMt8EmUp4SKxz",
+        shipping_rate: "shr_1NV6ydSHxFudyksW9nts4Bf2",
       },
     ],
     line_items,
   });
 
-  res.status(200).json({
+  // res.status(200).json({
+  //   url: session.url,
+
+  // });
+  const response = {
+    success: true,
+    message: "successfull checkout",
     url: session.url,
-  });
+  };
+  return NextResponse.json(response);
 };
 
 async function getCartItems(line_items) {

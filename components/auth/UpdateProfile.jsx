@@ -17,6 +17,7 @@ const UpdateProfile = () => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
+      setAvatarPreview(user.avatar.url);
     }
 
     if (error) {
@@ -24,6 +25,7 @@ const UpdateProfile = () => {
       clearErrors();
     }
   }, [error, user]);
+
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ const UpdateProfile = () => {
     formData.set("email", email);
     formData.set("image", avatar);
 
+  
     updateProfile(formData);
   };
 
@@ -47,6 +50,8 @@ const UpdateProfile = () => {
 
     setAvatar(e.target.files[0]);
     reader.readAsDataURL(e.target.files[0]);
+    
+
   };
 
   return (

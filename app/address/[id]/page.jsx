@@ -15,7 +15,7 @@ const getAddress = async (id) => {
     },
   });
 
-  return data?.address;
+  return data?.AllAddress
 };
 
 const UpdateAddressPage = async ({ params }) => {

@@ -3,6 +3,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
+// import {useSession} from "next-auth/react";
+import { useSession, mutate } from "next-auth/react";
 
 const AuthContext = createContext();
 
@@ -11,13 +13,56 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(null);
   const [updated, setUpdated] = useState(false);
+  const { data: session, update } = useSession();
 
   const router = useRouter();
+
+  const updateProfile = async (formData) => {
+    try {
+      setLoading(true);
+
+      const { data } = await axios.put(
+        `${process.env.API_URL}/api/auth/me`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // if (data) {
+
+      //   setUser(data);
+      //   // loadUser();
+      //   setLoading(false);
+      // }
+
+      if (data) {
+        // Update the NextAuth session with the new data
+
+        update({
+          ...session,
+          user: { ...session.user, ...data },
+        });
+        setUser(data);
+        setLoading(false);
+
+        // Update the NextAuth session with the updatedSession
+        // You can use the `mutate` function from Next.js to update the session
+      }
+    } catch (error) {
+      console.log("error", error);
+      setLoading(false);
+      setError(error);
+    }
+  };
 
   const registerUser = async ({ name, email, password }) => {
     try {
       const { data } = await axios.post(
         `${process.env.API_URL}/api/auth/register`,
+        // `http://localhost:3000/api/auth/register`,
         {
           name,
           email,
@@ -26,10 +71,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data?.user) {
-        router.push("/");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setError(error?.response?.data?.message);
     }
   };
@@ -45,30 +89,6 @@ export const AuthProvider = ({ children }) => {
         router.replace("/me");
       }
     } catch (error) {
-      setError(error?.response?.data?.message);
-    }
-  };
-
-  const updateProfile = async (formData) => {
-    try {
-      setLoading(true);
-
-      const { data } = await axios.put(
-        `${process.env.API_URL}/api/auth/me/update`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      if (data?.user) {
-        loadUser();
-        setLoading(false);
-      }
-    } catch (error) {
-      setLoading(false);
       setError(error?.response?.data?.message);
     }
   };
@@ -125,11 +145,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const addNewAddress = async (address) => {
-  
-  
     try {
       const { data } = await axios.post(
-        `${process.env.API_URL}/api/address`,address);
+        `${process.env.API_URL}/api/address`,
+        address
+      );
 
       if (data) {
         router.push("/me");
@@ -148,7 +168,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.address) {
         setUpdated(true);
-        router.replace(`/address/${id}`);
+        router.push(`/address/${id}`);
       }
     } catch (error) {
       setError(error?.response?.data?.message);
