@@ -5,6 +5,8 @@ import APIFilters from "../utils/APIFilters";
 import ErrorHandler from "../utils/errorHandler";
 import { NextResponse } from "next/server";
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
 export const getOrders = async (req, res) => {
   const resPerPage = 2;
@@ -98,18 +100,36 @@ export const deleteOrder = async (req, res) => {
 };
 
 export const canReview = async (req, res) => {
-  const productId = req.query.productId;
+  // const productId = req.query.productId;
+  // const productId = await req.json();
+
+  const { searchParams } = new URL(req?.url);
+    const productID = Object.fromEntries(searchParams.entries());
+  const productId=productID?.productId
+
+
+
+
+
+
+  const sessionData = await getServerSession(authOptions);
+  const userID = sessionData?.user?.id;
 
   const orders = await Order.find({
-    user: req?.user?._id,
+    user: userID,
     "orderItems.product": productId,
   });
 
   let canReview = orders?.length >= 1 ? true : false;
 
-  res.status(200).json({
-    canReview,
-  });
+  const response={
+    canReview
+  }
+  return NextResponse.json(response);
+
+  // res.status(200).json({
+  //   canReview,
+  // });
 };
 
 export const checkoutSession = async (req, res) => {

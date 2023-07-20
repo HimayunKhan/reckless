@@ -28,7 +28,6 @@ export const updateProfile = async (req, res) => {
       email: formData.get("email"),
     };
 
-    console.log("himaaaaaaaaaaa", newUserData.name, newUserData.email);
 
     if (formData.has("image")) {
       const file = formData.get("image");

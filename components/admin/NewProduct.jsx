@@ -32,6 +32,7 @@ const NewProduct = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
 
     newProduct(product);
   };

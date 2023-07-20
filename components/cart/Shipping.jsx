@@ -29,7 +29,6 @@ const Shipping = ({ addresses }) => {
           shippingInfo,
         }
       );
-      console.log("dtaaaaa",data)
 
       window.location.href = data.url;
     } catch (error) {

@@ -10,7 +10,6 @@ import AuthContext from "@/context/AuthContext";
 
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
-
   const { data } = useSession();
 
 
@@ -24,21 +23,23 @@ const Header = () => {
   const cartItems = cart?.cartItems;
 
   return (
-    <header className="bg-white py-2 border-b">
+    <header className="bg-[#ddd] py-2 border-b">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-wrap items-center">
           <div className="flex-shrink-0 mr-5">
             <a href="/">
               <Image
-                src="/images/logo.png"
-                height={40}
-                width={120}
-                alt="BuyItNow"
+                src="/images/chokhaLogo.png"
+                height={100}
+                width={240}
+                alt="chokhaLogo"
                 priority={true}
                 style={{ objectFit: "contain" }}
               />
             </a>
           </div>
+
+
           <Search />
 
           <div className="flex items-center space-x-2 ml-auto">

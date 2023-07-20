@@ -84,7 +84,7 @@ export const ProductProvider = ({ children }) => {
   const postReview = async (reviewData) => {
     try {
       const { data } = await axios.put(
-        `${process.env.API_URL}/api/products/review`,
+        `${process.env.API_URL}/api/products/reviews`,
         reviewData
       );
 

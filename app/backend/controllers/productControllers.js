@@ -3,6 +3,13 @@ import APIFilters from "../utils/APIFilters";
 import { cloudinary, uploads } from "../utils/cloudinary";
 import fs from "fs";
 import ErrorHandler from "../utils/errorHandler";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import dbConnect from "../config/dbConnect";
+import createErrorResponse from "../middlewares/errors";
+import ProductModel from "@/app/backend/models/product";
+import { NextResponse } from "next/server";
+
 
 export const newProduct = async (req, res, next) => {
   req.body.user = req.user._id;
@@ -11,6 +18,49 @@ export const newProduct = async (req, res, next) => {
   res.status(201).json({
     product,
   });
+};
+
+export const newProductAdmin = async (req, res) => {
+  try {
+    dbConnect();
+    const session = await getServerSession(authOptions);
+    const userID = session?.user?.id;
+    const {
+      name,
+      description,
+      price,
+      seller,
+      stock,
+      category,
+      images,
+      reviews,
+    
+    } = await req.json();
+
+    const productDoc = await ProductModel.create({
+      name,
+      description,
+      price,
+      seller,
+      stock,
+      category,
+      images,
+      reviews,
+      userID
+    });
+
+    const res = {
+      success: true,
+      message: "Product created successfully",
+      data: productDoc,
+    };
+
+    return NextResponse.json(res);
+  } catch (error) {
+    return createErrorResponse(error);
+  }
+
+
 };
 
 export const getProducts = async (req, res, next) => {
@@ -36,20 +86,32 @@ export const getProducts = async (req, res, next) => {
   });
 };
 
-export const getProduct = async (req, res, next) => {
-  const product = await Product.findById(req.query.id);
+export const getProduct = async (req, res, context) => {
 
-  if (!product) {
-    return next(new ErrorHandler("Product not found.", 404));
-  }
+  const id=context.params.id
 
-  res.status(200).json({
-    product,
-  });
+  // const product = await Product.findById(req.query.id);
+
+  // if (!product) {
+  //   return next(new ErrorHandler("Product not found.", 404));
+  // }
+
+  // res.status(200).json({
+  //   product,
+  // });
+
+  return new Response("huhuhuhu")
 };
 
-export const uploadProductImages = async (req, res, next) => {
-  let product = await Product.findById(req.query.id);
+export const uploadProductImages = async (req, res, context) => {
+  const productURL = new URL(req.url);
+  const pathnameParts = productURL.pathname.split('/');
+  const productId = pathnameParts[pathnameParts.length - 1];
+  // let product = await Product.findById(req.query.id);
+ 
+  
+ 
+  let product = await Product.findById(productId);
 
   if (!product) {
     return next(new ErrorHandler("Product not found.", 404));
@@ -58,7 +120,10 @@ export const uploadProductImages = async (req, res, next) => {
   const uploader = async (path) => await uploads(path, "buyitnow/products");
 
   const urls = [];
-  const files = req.files;
+  // const files = req.files;
+  const formData=await req.formData()
+  const files = formData.get("image");
+
 
   for (const file of files) {
     const { path } = file;
@@ -67,28 +132,28 @@ export const uploadProductImages = async (req, res, next) => {
     fs.unlinkSync(path);
   }
 
-  product = await Product.findByIdAndUpdate(req.query.id, {
+  product = await Product.findByIdAndUpdate(productId, {
     images: urls,
   });
 
-  res.status(200).json({
-    data: urls,
-    product,
-  });
+  // // res.status(200).json({
+  // //   data: urls,
+  // //   product,
+  // // });
+
+  const response={
+    success:true,
+    message:"product images successfully uploaded",
+    data:urls,
+    product
+  }
+  return NextResponse.json(response)
+  // return new Response("hiiimmaaa")
 };
 
-export const updateProduct = async (req, res, next) => {
-  let product = await Product.findById(req.query.id);
+export const updateProduct = async (req, res, context) => {
 
-  if (!product) {
-    return next(new ErrorHandler("Product not found.", 404));
-  }
-
-  product = await Product.findByIdAndUpdate(req.query.id, req.body);
-
-  res.status(200).json({
-    product,
-  });
+  const productId=context.params.id
 };
 
 export const deleteProduct = async (req, res, next) => {
@@ -113,10 +178,16 @@ export const deleteProduct = async (req, res, next) => {
 };
 
 export const createProductReview = async (req, res, next) => {
-  const { rating, comment, productId } = req.body;
+
+
+  const sessionData = await getServerSession(authOptions);
+    const userID = sessionData?.user?.id;
+  
+  const { rating, comment, productId } = await req.json();
+
 
   const review = {
-    user: req?.user?._id,
+    user: userID,
     rating: Number(rating),
     comment,
   };
@@ -124,16 +195,16 @@ export const createProductReview = async (req, res, next) => {
   let product = await Product.findById(productId);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found.", 404));
+    return new Response("Product not found.", 404);
   }
 
   const isReviewed = product?.reviews?.find(
-    (r) => r.user.toString() === req.user._id.toString()
+    (r) => r.user.toString() === userID.toString()
   );
 
   if (isReviewed) {
     product?.reviews.forEach((review) => {
-      if (review.user.toString() === req.user._id.toString()) {
+      if (review.user.toString() === userID.toString()) {
         review.comment = comment;
         review.rating = rating;
       }
@@ -148,7 +219,10 @@ export const createProductReview = async (req, res, next) => {
 
   await product?.save();
 
-  res.status(200).json({
-    success: true,
-  });
+  const response={
+    success:true,
+    message:"review submitted"
+  }
+
+ return NextResponse.json(response)
 };

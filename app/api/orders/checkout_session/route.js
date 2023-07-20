@@ -21,7 +21,7 @@ router.post(async (req, res) => {
     const sessionData = await getServerSession(authOptions);
     const userID = sessionData?.user?.id;
     const user = sessionData?.user;
-	console.log("userrrrrr",userID)
+
 
     const line_items = items?.map((item) => {
       return {

@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
-// import {useSession} from "next-auth/react";
 import { useSession, mutate } from "next-auth/react";
 
 const AuthContext = createContext();
@@ -48,8 +47,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
         setLoading(false);
 
-        // Update the NextAuth session with the updatedSession
-        // You can use the `mutate` function from Next.js to update the session
+      
       }
     } catch (error) {
       console.log("error", error);
