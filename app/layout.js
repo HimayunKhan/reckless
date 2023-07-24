@@ -3,6 +3,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { GlobalProvider } from "./GlobalProvider";
 import Providers from "@/components/Providers";
+import Footer from "@/components/layouts/Footer";
+import Navbar from "@/components/layouts/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,17 +16,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="bg-[#F5F5F3]">
         <Providers>
           <GlobalProvider>
             <Header />
             {children}
+            <Footer />
           </GlobalProvider>
         </Providers>
       </body>
     </html>
   );
 }
-
-
-

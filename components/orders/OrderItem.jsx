@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const OrderItem = ({ order }) => {
   return (
-    <article className="p-3 lg:p-5 mb-5 bg-white border border-blue-600 rounded-md">
+    <article className="p-3 lg:p-5 mb-5 bg-color1 shadow-testShadow rounded-md">
       <header className="lg:flex justify-between mb-4">
         <div className="mb-4 lg:mb-0">
           <p className="font-semibold">
@@ -23,7 +23,7 @@ const OrderItem = ({ order }) => {
       </header>
       <div className="grid md:grid-cols-3 gap-2">
         <div>
-          <p className="text-gray-400 mb-1">Person</p>
+          <p className="text-gray-800 font-semibold mb-1">Person</p>
           <ul className="text-gray-600">
             <li>{order?.user?.name}</li>
             <li>Phone: {order?.shippingInfo?.phoneNo}</li>
@@ -31,7 +31,7 @@ const OrderItem = ({ order }) => {
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Delivery address</p>
+          <p className="text-gray-800 font-semibold mb-1">Delivery address</p>
           <ul className="text-gray-600">
             <li>{order?.shippingInfo?.street}</li>
             <li>
@@ -42,7 +42,7 @@ const OrderItem = ({ order }) => {
           </ul>
         </div>
         <div>
-          <p className="text-gray-400 mb-1">Payment</p>
+          <p className="text-gray-800 font-semibold mb-1">Payment</p>
           <ul className="text-gray-600">
             <li className="text-green-400">
               {order?.paymentInfo?.status?.toUpperCase()}

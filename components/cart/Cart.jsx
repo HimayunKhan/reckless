@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 
 import CartContext from "@/context/CartContext";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Cart = () => {
   const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
@@ -48,11 +49,41 @@ const Cart = () => {
 
   return (
     <>
-      <section className="py-5 sm:py-7 bg-blue-100">
+      <section className="py-5 sm:py-7 bg-[#F5F5F3]">
         <div className="container max-w-screen-xl mx-auto px-4">
           <h2 className="text-3xl font-semibold mb-2">
             {cart?.cartItems?.length || 0} Item(s) in Cart
           </h2>
+
+          {cart?.cartItems?.length ==0 && 
+          <motion.div
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
+        >
+          <div>
+            <img
+              className="w-80 rounded-lg p-4 mx-auto"
+              src="/images/assets/images/emptyCart.png"
+              alt="emptyCart"
+            />
+          </div>
+          <div className="max-w-[500px] p-4 py-8 bg-white flex gap-4 flex-col items-center rounded-md shadow-lg">
+            <h1 className="font-titleFont text-xl font-bold uppercase">
+              Your Cart feels lonely.
+            </h1>
+            <p className="text-sm text-center px-10 -mt-2">
+              Your Shopping cart lives to serve. Give it purpose - fill it with
+              books, electronics, videos, etc. and make it happy.
+            </p>
+            <Link href="/">
+              <button className="bg-primeColor rounded-md cursor-pointer hover:bg-black active:bg-gray-900 px-8 py-2 font-titleFont font-semibold text-lg text-gray-200 hover:text-white duration-300">
+                Continue Shopping
+              </button>
+            </Link>
+          </div>
+        </motion.div>}
         </div>
       </section>
 
@@ -172,7 +203,7 @@ const Cart = () => {
                   </ul>
 
                   <a
-                    className="px-4 py-3 mb-2 inline-block text-lg w-full text-center font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 cursor-pointer"
+                    className="px-4 py-3 mb-2 inline-block text-lg w-full text-center font-medium text-white bg-black border border-transparent rounded-md hover:bg-customGold cursor-pointer"
                     onClick={checkoutHandler}
                   >
                     Continue
@@ -180,7 +211,7 @@ const Cart = () => {
 
                   <Link
                     href="/"
-                    className="px-4 py-3 inline-block text-lg w-full text-center font-medium text-green-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100"
+                    className="px-4 py-3 inline-block text-lg w-full text-center font-medium text-black bg-color1 shadow-sm border border-gray-200 rounded-md hover:bg-gray-100"
                   >
                     Back to shop
                   </Link>

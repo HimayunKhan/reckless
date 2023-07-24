@@ -25,16 +25,19 @@ const Register = () => {
     e.preventDefault();
 
     registerUser({ name, email, password });
-    // router.push("/")
+    toast.success("signup successful")
+    router.push("/login")
+
   };
 
   return (
+    <div className="flex justify-center">
     <div
-      style={{ maxWidth: "480px" }}
-      className="mt-10 mb-20 p-4 md:p-7 mx-auto rounded bg-white shadow-lg"
+      // style={{ maxWidth: "480px" }}
+      className="  bg-[#F5F5F3] w-full md:w-[40%] my-10 mx-4 p-4 md:p-7   rounded-lg  shadow-testShadow"
     >
       <form onSubmit={submitHandler}>
-        <h2 className="mb-5 text-2xl font-semibold">Register Account</h2>
+        <h2 className="mb-5 text-center text-3xl font-bold">SIGN UP</h2>
 
         <div className="mb-4">
           <label className="block mb-1"> Full Name </label>
@@ -75,7 +78,7 @@ const Register = () => {
 
         <button
           type="submit"
-          className="my-2 px-4 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+          className="my-2 px-4 py-2 text-center w-full inline-block text-customGold bg-black border border-transparent rounded-md hover:bg-customGold hover:text-black"
         >
           Register
         </button>
@@ -84,11 +87,12 @@ const Register = () => {
 
         <p className="text-center mt-5">
           Already have an account?
-          <Link href="/login" className="text-blue-500">
-            Sign in
+          <Link href="/login" className="text-customGold">
+            &nbsp;Sign in
           </Link>
         </p>
       </form>
+    </div>
     </div>
   );
 };

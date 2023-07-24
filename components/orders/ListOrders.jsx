@@ -22,7 +22,7 @@ const ListOrders = ({ orders }) => {
 
   return (
     <>
-      <h3 className="text-xl font-semibold mb-5">Your Orders</h3>
+      <h3 className="text-3xl font-semibold mb-5">YOUR ORDERS:</h3>
       {orders?.orders?.map((order) => (
         <OrderItem key={order.id} order={order} />
       ))}

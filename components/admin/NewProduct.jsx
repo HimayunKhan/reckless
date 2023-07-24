@@ -25,14 +25,13 @@ const NewProduct = () => {
     "Electronics",
     "Cameras",
     "Laptops",
-    "Accessories",
+    "shirt",
     "Headphones",
-    "Sports",
+    "mobile",
   ];
 
   const submitHandler = (e) => {
     e.preventDefault();
-    
 
     newProduct(product);
   };
@@ -97,6 +96,8 @@ const NewProduct = () => {
                 onChange={onChange}
                 required
               >
+           
+                <option value="">Select Category</option>
                 {categories.map((category) => (
                   <option key={category} value={category}>
                     {category}

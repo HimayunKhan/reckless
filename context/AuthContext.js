@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
 import { useSession, mutate } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -69,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data?.user) {
+       
       }
     } catch (error) {
       console.log(error);

@@ -1,17 +1,21 @@
 "use client";
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Search from "./Search";
 import Image from "next/image";
 import CartContext from "@/context/CartContext";
 import { useSession } from "next-auth/react";
 import AuthContext from "@/context/AuthContext";
+import { FaUserAlt } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import FullScreenMobileMenu from "./FullScreenMobileMenu";
 
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
   const { data } = useSession();
-
+  const [menuopen, setmenuopen] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -23,77 +27,88 @@ const Header = () => {
   const cartItems = cart?.cartItems;
 
   return (
-    <header className="bg-[#ddd] py-2 border-b">
-      <div className="container max-w-screen-xl mx-auto px-4">
-        <div className="flex flex-wrap items-center">
-          <div className="flex-shrink-0 mr-5">
-            <a href="/">
-              <Image
-                src="/images/chokhaLogo.png"
-                height={100}
-                width={240}
-                alt="chokhaLogo"
-                priority={true}
-                style={{ objectFit: "contain" }}
-              />
-            </a>
-          </div>
+    <>
+      {menuopen && <FullScreenMobileMenu setopen={setmenuopen} user={user} />}
 
+      <header className="bg-black py-2 border-b">
+        <div className="container max-w-screen-xl mx-auto px-4">
+          <div className="flex flex-wrap items-center">
+            <div className="flex-shrink-0 mr-5">
+              <a href="/">
+                <Image
+                  src="/images/chokhaLogo.png"
+                  height={100}
+                  width={240}
+                  alt="chokhaLogo"
+                  priority={true}
+                  style={{ objectFit: "contain" }}
+                />
+              </a>
+            </div>
 
-          <Search />
-
-          <div className="flex items-center space-x-2 ml-auto">
-            <Link
-              href="/cart"
-              className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
-            >
-              <i className="text-gray-400 w-5 fa fa-shopping-cart"></i>
-              <span className="hidden lg:inline ml-1">
-                Cart (<b>{cartItems?.length || 0}</b>)
-              </span>
-            </Link>
-            {!user ? (
-              <Link
-                href="/login"
-                className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
-              >
-                <i className="text-gray-400 w-5 fa fa-user"></i>
-                <span className="hidden lg:inline ml-1">Sign in</span>
-              </Link>
-            ) : (
-              <Link href="/me">
-                <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={
-                      user?.avatar ? user?.avatar?.url : "/images/default.png"
-                    }
-                  />
-                  <div className="space-y-1 font-medium">
-                    <p>
-                      {user?.name}
-                      <time className="block text-sm text-gray-500 dark:text-gray-400">
-                        {user?.email}
-                      </time>
-                    </p>
+            <Search />
+            <div className="hidden md:block ml-auto">
+              <div className="flex items-center space-x-2 ml-auto ">
+                <Link
+                  href="/cart"
+                  // className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
+                >
+                  <div>
+                    <FaShoppingCart
+                      className="text-customGold mr-4"
+                      size={40}
+                    />
+                    {cartItems?.length > 0 && (
+                      <span className="absolute  font-titleFont top-6 right-16  text-xs w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white">
+                        {cartItems?.length}
+                      </span>
+                    )}
                   </div>
-                </div>
-              </Link>
-            )}
-          </div>
+                </Link>
 
-          <div className="lg:hidden ml-2">
-            <button
-              type="button"
-              className="bg-white p-3 inline-flex items-center rounded-md text-black hover:bg-gray-200 hover:text-gray-800 border border-transparent"
-            >
-              <span className="sr-only">Open menu</span>
-              <i className="fa fa-bars fa-lg"></i>
-            </button>
+
+
+                {!user ? (
+                  <Link
+                    href="/login"
+                    // className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
+                  >
+                    <span>
+                      <FaUserAlt className="text-customGold " size={35} />
+                    </span>
+                  </Link>
+                ) : (
+                  <Link href="/me">
+                    <div className="   cursor-pointer ">
+                      <Image
+                        className="w-10 h-10  rounded-full"
+                        src={
+                          user?.avatar?.url ||
+                          user?.image ||
+                          "/images/default.png"
+                        }
+                        width={40}
+                        height={40}
+                      />
+                      <div className="text-white font-medium"></div>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            </div>
+            <div className="md:hidden ml-2">
+              <button
+                type="button"
+                className="bg-white p-3 inline-flex items-center rounded-md text-black hover:bg-gray-200 hover:text-gray-800 border border-transparent"
+                onClick={() => setmenuopen(true)}
+              >
+                <FaBars size="1.5rem" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
 

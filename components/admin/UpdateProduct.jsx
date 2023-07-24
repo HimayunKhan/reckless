@@ -39,9 +39,9 @@ const UpdateProduct = ({ data }) => {
     "Electronics",
     "Cameras",
     "Laptops",
-    "Accessories",
+    "shirt",
     "Headphones",
-    "Sports",
+    "mobile",
   ];
 
   const submitHandler = (e) => {

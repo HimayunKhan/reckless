@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FaSearch } from 'react-icons/fa';
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
@@ -33,10 +34,10 @@ const Search = () => {
       />
       <button
         type="button"
-        className="px-4 py-2 inline-block text-white border border-transparent bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        className="px-4 py-2 inline-block text-white border border-transparent bg-[#ddb148] text-white rounded-md hover:bg-customGold"
         onClick={submitHandler}
       >
-        Search
+        <FaSearch size={24}/>
       </button>
     </form>
   );

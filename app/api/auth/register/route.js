@@ -11,17 +11,19 @@ export async function POST(request, response) {
       name,
       email,
       password,
-     
     });
 
     const res = {
       success: true,
       message: "User registered successfully",
-      data: user,
+      data: {
+        user: user.name,
+        email: user.email,
+      },
     };
 
     return NextResponse.json(res);
   } catch (error) {
-  return createErrorResponse(error)
+    return createErrorResponse(error);
   }
 }

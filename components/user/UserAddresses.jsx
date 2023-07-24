@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const UserAddresses = ({ addresses }) => {
   useEffect(()=>{
@@ -9,10 +10,10 @@ const UserAddresses = ({ addresses }) => {
   return addresses?.map((address) => (
     <Link href={`/address/${address._id}`} key={address._id}>
       <div className="mb-5 gap-4">
-        <figure className="w-full flex align-center bg-gray-100 p-4 rounded-md cursor-pointer">
+        <figure className="w-full  flex align-center bg-color1 p-4 rounded-md cursor-pointer shadow-test2Shadow ">
           <div className="mr-3">
             <span className="flex items-center justify-center text-yellow-500 w-12 h-12 bg-white rounded-full shadow mt-2">
-              <i className="fa fa-map-marker-alt"></i>
+            <FaMapMarkerAlt />
             </span>
           </div>
           <figcaption className="text-gray-600">
@@ -24,6 +25,8 @@ const UserAddresses = ({ addresses }) => {
             </p>
           </figcaption>
         </figure>
+        <hr className="my-4" />
+
       </div>
     </Link>
   ));

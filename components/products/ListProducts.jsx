@@ -9,7 +9,7 @@ const ListProducts = ({ data }) => {
 
 
   return (
-    <section className="py-12">
+    <section className="py-12 bg-[#F5F5F3]">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-col md:flex-row -mx-4">
           <Filters />

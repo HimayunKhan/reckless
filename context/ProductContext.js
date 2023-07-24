@@ -3,6 +3,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 
 const ProductContext = createContext();
 
@@ -37,6 +38,7 @@ export const ProductProvider = ({ children }) => {
       );
 
       if (data) {
+        toast.success("product added successfully")
         router.replace("/admin/products");
       }
     } catch (error) {

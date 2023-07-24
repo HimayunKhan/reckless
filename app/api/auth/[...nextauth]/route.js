@@ -5,9 +5,14 @@ import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { mongooseConnect } from "@/lib/mongoose";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID??"" ,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ??"",
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -31,41 +36,36 @@ export const authOptions = {
           throw new Error("Invalid Email or Password");
         }
 
-        // Return the authenticated user
         return { ...user._doc, id: user._id.toString() };
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user,session,trigger }) => {
+    jwt: async ({ token, user, session, trigger }) => {
       user && (token.user = user);
 
-      if(trigger=="update"){
-        return [...token,...session.user]
+      if (trigger == "update") {
+        return [...token, ...session.user];
       }
 
-    
-
-      // if (req.url === "/api/auth/session?update") {
-      //   // hit the db and eturn the updated user
-
-      //   const updatedUser = await User.findById(token.user._id);
-      //   token.user = updatedUser;
-      // }
-      
-  
       return token;
     },
     session: async ({ session, token }) => {
       session.user = token.user;
 
-     
-
-
       // delete password from session
       delete session?.user?.password;
 
       return session;
+    },
+    async signIn({ account, profile }) {
+     
+     
+      if (account.provider === "google") {
+        return profile
+ 
+      }
+      return true
     },
   },
   adapter: MongoDBAdapter(clientPromise),
@@ -78,6 +78,4 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-
 export { handler as GET, handler as POST };
-

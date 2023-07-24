@@ -96,7 +96,7 @@ const Filters = () => {
 
           <div className="mb-4">
             <button
-              className="px-1 py-2 text-center w-full inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+              className="px-1 py-2 text-center w-full inline-block text-white bg-black border border-transparent rounded-md hover:bg-customGold"
               onClick={handleButtonClick}
             >
               Go
@@ -140,12 +140,12 @@ const Filters = () => {
               <input
                 name="category"
                 type="checkbox"
-                value="Toys"
+                value="Cameras"
                 className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Toys")}
+                defaultChecked={checkHandler("category", "Cameras")}
                 onClick={(e) => handleClick(e.target)}
               />
-              <span className="ml-2 text-gray-500"> Toys </span>
+              <span className="ml-2 text-gray-500"> Cameras </span>
             </label>
           </li>
           <li>
@@ -153,12 +153,12 @@ const Filters = () => {
               <input
                 name="category"
                 type="checkbox"
-                value="Office"
+                value="shirt"
                 className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Office")}
+                defaultChecked={checkHandler("category", "shirt")}
                 onClick={(e) => handleClick(e.target)}
               />
-              <span className="ml-2 text-gray-500"> Office </span>
+              <span className="ml-2 text-gray-500"> shirt </span>
             </label>
           </li>
           <li>
@@ -172,6 +172,19 @@ const Filters = () => {
                 onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 text-gray-500"> Headphones </span>
+            </label>
+          </li>
+          <li>
+            <label className="flex items-center">
+              <input
+                name="category"
+                type="checkbox"
+                value="mobile"
+                className="h-4 w-4"
+                defaultChecked={checkHandler("category", "mobile")}
+                onClick={(e) => handleClick(e.target)}
+              />
+              <span className="ml-2 text-gray-500"> mobile </span>
             </label>
           </li>
         </ul>

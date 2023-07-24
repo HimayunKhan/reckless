@@ -45,7 +45,7 @@ const ProductDetails = ({ product }) => {
   return (
     <>
       <BreadCrumbs breadCrumbs={breadCrumbs} />
-      <section className="bg-white py-10">
+      <section className="bg-white py-10 ">
         <div className="container max-w-screen-xl mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-5">
             <aside>
@@ -124,7 +124,7 @@ const ProductDetails = ({ product }) => {
 
               <div className="flex flex-wrap gap-2 mb-5">
                 <button
-                  className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 inline-block text-white bg-black border border-transparent rounded-md hover:bg-blue-700"
                   onClick={addToCartHandler}
                   disabled={!inStock}
                 >
