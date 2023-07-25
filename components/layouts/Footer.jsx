@@ -36,7 +36,7 @@ const Footer = () => {
         <div className="col-span-2">
           <FooterListTitle title=" More about Chokha Shop" />
           <div className="flex flex-col gap-6">
-            <p className="text-base w-full xl:w-[80%]">
+            <p className="text-base w-full xl:w-[80%] ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sint
               ab ullam, numquam nesciunt in.
             </p>
@@ -153,19 +153,13 @@ const Footer = () => {
                 </div>
                 <button
                   onClick={handleSubscription}
-                  className="bg-white text-lightText w-[30%] h-10 hover:bg-black hover:text-white duration-300 text-base tracking-wide"
+                  className="bg-black text-customGold p-2 w-[30%] h-10 hover:bg-customGold hover:text-black duration-300 text-base tracking-wide rounded-md"
                 >
                   Subscribe
                 </button>
               </div>
             )}
 
-            {/* <Image
-              className={`w-[80%] lg:w-[60%] mx-auto ${
-                subscription ? "mt-2" : "mt-6"
-              }`}
-              imgSrc={payment}
-            /> */}
 
             <Image
               src="/images/assets/images/payment.png"

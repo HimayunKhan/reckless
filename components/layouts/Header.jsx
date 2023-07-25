@@ -51,7 +51,6 @@ const Header = () => {
               <div className="flex items-center space-x-2 ml-auto ">
                 <Link
                   href="/cart"
-                  // className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
                 >
                   <div>
                     <FaShoppingCart
@@ -71,7 +70,6 @@ const Header = () => {
                 {!user ? (
                   <Link
                     href="/login"
-                    // className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
                   >
                     <span>
                       <FaUserAlt className="text-customGold " size={35} />
