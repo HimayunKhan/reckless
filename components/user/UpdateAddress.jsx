@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useContext, useEffect } from "react";
-
 import Sidebar from "../layouts/Sidebar";
-
 import { countries } from "countries-list";
 import AuthContext from "@/context/AuthContext";
 import { toast } from "react-toastify";
@@ -20,7 +18,6 @@ const UpdateAddress = ({ id, address }) => {
   } = useContext(AuthContext);
 
   const countriesList = Object.values(countries);
-
   const [street, setStreet] = useState(address?.street);
   const [city, setCity] = useState(address?.city);
   const [state, setState] = useState(address?.state);
@@ -42,9 +39,12 @@ const router=useRouter()
     }
   }, [error, updated]);
 
+
+
+
+
   const submitHandler = (e) => {
     e.preventDefault();
-
     const newAddress = {
       street,
       city,
@@ -144,9 +144,9 @@ const router=useRouter()
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                     >
-                      {countriesList.map((country) => (
-                        <option key={country.name} value={country.name}>
-                          {country.name}
+                      {countriesList?.map((country) => (
+                        <option key={country?.name} value={country?.name}>
+                          {country?.name}
                         </option>
                       ))}
                     </select>

@@ -26,12 +26,12 @@ const ProductDetails = ({ product }) => {
 
   const addToCartHandler = () => {
     addItemToCart({
-      product: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0].url,
-      stock: product.stock,
-      seller: product.seller,
+      product: product?._id,
+      name: product?.name,
+      price: product?.price,
+      image: product?.images[0]?.url,
+      stock: product?.stock,
+      seller: product?.seller,
     });
   };
 
@@ -50,14 +50,14 @@ const ProductDetails = ({ product }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-5">
             <aside>
               <div className="border border-gray-200 shadow-sm p-3 text-center rounded mb-5">
-                {product?.images && product.images.length > 0 ? (
+                {product?.images && product?.images?.length > 0 ? (
                   <img
                     ref={imgRef}
                     className="object-cover inline-block"
-                    src={product.images[0].url}
+                    src={product?.images[0]?.url}
                     alt="Product title"
-                    width={340}
-                    height={340}
+                    // width={340}
+                    // height={340}
                   />
                 ) : (
                   <img
@@ -65,8 +65,8 @@ const ProductDetails = ({ product }) => {
                     className="object-cover inline-block"
                     src="/images/default_product.png"
                     alt="Product title"
-                    width={340}
-                    height={340}
+                    // width={340}
+                    // height={340}
                   />
                 )}
               </div>
@@ -76,11 +76,11 @@ const ProductDetails = ({ product }) => {
                   <a
                     className="inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer"
                     onClick={() => setImgPreview(img?.url)}
-                    key={img.id}
+                    key={img?.id}
                   >
-                    <Image
+                    <img
                       className="w-14 h-14"
-                      src={img.url}
+                      src={img?.url}
                       alt="Product title"
                       width={500}
                       height={500}

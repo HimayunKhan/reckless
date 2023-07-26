@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import CartContext from "@/context/CartContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Cart = () => {
   const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
@@ -28,10 +29,9 @@ const Cart = () => {
     addItemToCart(item);
   };
 
-  const amountWithoutTax = cart?.cartItems?.reduce(
-    (acc, item) => acc + item.quantity * item.price,
-    0
-  ).toFixed(2);
+  const amountWithoutTax = cart?.cartItems
+    ?.reduce((acc, item) => acc + item.quantity * item.price, 0)
+    .toFixed(2);
 
   const taxAmount = (amountWithoutTax * 0.15).toFixed(2);
 
@@ -55,35 +55,38 @@ const Cart = () => {
             {cart?.cartItems?.length || 0} Item(s) in Cart
           </h2>
 
-          {cart?.cartItems?.length ==0 && 
-          <motion.div
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
-        >
-          <div>
-            <img
-              className="w-80 rounded-lg p-4 mx-auto"
-              src="/images/assets/images/emptyCart.png"
-              alt="emptyCart"
-            />
-          </div>
-          <div className="max-w-[500px] p-4 py-8 bg-white flex gap-4 flex-col items-center rounded-md shadow-lg">
-            <h1 className="font-titleFont text-xl font-bold uppercase">
-              Your Cart feels lonely.
-            </h1>
-            <p className="text-sm text-center px-10 -mt-2">
-              Your Shopping cart lives to serve. Give it purpose - fill it with
-              books, electronics, videos, etc. and make it happy.
-            </p>
-            <Link href="/">
-              <button className="bg-primeColor rounded-md cursor-pointer hover:bg-black active:bg-gray-900 px-8 py-2 font-titleFont font-semibold text-lg text-gray-200 hover:text-white duration-300">
-                Continue Shopping
-              </button>
-            </Link>
-          </div>
-        </motion.div>}
+          {cart?.cartItems?.length == 0 && (
+            <motion.div
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
+            >
+              <div>
+                <Image
+                  className="w-80 rounded-lg p-4 mx-auto"
+                  src="/images/assets/images/emptyCart.png"
+                  alt="emptyCart"
+                  width={80}
+                  height={80}
+                />
+              </div>
+              <div className="max-w-[500px] p-4 py-8 bg-white flex gap-4 flex-col items-center rounded-md shadow-lg">
+                <h1 className="font-titleFont text-xl font-bold uppercase">
+                  Your Cart feels lonely.
+                </h1>
+                <p className="text-sm text-center px-10 -mt-2">
+                  Your Shopping cart lives to serve. Give it purpose - fill it
+                  with books, electronics, videos, etc. and make it happy.
+                </p>
+                <Link href="/">
+                  <button className="bg-primeColor rounded-md cursor-pointer hover:bg-black active:bg-gray-900 px-8 py-2 font-titleFont font-semibold text-lg text-gray-200 hover:text-white duration-300">
+                    Continue Shopping
+                  </button>
+                </Link>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -94,13 +97,19 @@ const Cart = () => {
               <main className="md:w-3/4">
                 <article className="border border-gray-200 bg-white shadow-sm rounded mb-5 p-3 lg:p-5">
                   {cart?.cartItems?.map((cartItem) => (
-                    <div>
+                    <div key={cartItem?.image}>
                       <div className="flex flex-wrap lg:flex-row gap-5  mb-4">
                         <div className="w-full lg:w-2/5 xl:w-2/4">
                           <figure className="flex leading-5">
                             <div>
                               <div className="block w-16 h-16 rounded border border-gray-200 overflow-hidden">
-                                <img src={cartItem.image} alt={cartItem.name} />
+                                <Image
+                                  className="w-16 h-16"
+                                  src={cartItem?.image}
+                                  alt={cartItem?.name}
+                                  height={40}
+                                  width={40}
+                                />
                               </div>
                             </div>
                             <figcaption className="ml-3">

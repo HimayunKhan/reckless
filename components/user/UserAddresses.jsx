@@ -8,7 +8,7 @@ const UserAddresses = ({ addresses }) => {
   },[addresses])
 
   return addresses?.map((address) => (
-    <Link href={`/address/${address._id}`} key={address._id}>
+    <Link href={`/address/${address._id}`} key={address?._id}>
       <div className="mb-5 gap-4">
         <figure className="w-full  flex align-center bg-color1 p-4 rounded-md cursor-pointer shadow-test2Shadow ">
           <div className="mr-3">
@@ -18,10 +18,10 @@ const UserAddresses = ({ addresses }) => {
           </div>
           <figcaption className="text-gray-600">
             <p>
-              {address.street} <br /> {address.city}, {address.state},{" "}
-              {address.zipCode}, {address.country}
+              {address?.street} <br /> {address?.city}, {address?.state},{" "}
+              {address?.zipCode}, {address?.country}
               <br />
-              Phone no: {address.phoneNo}
+              Phone no: {address?.phoneNo}
             </p>
           </figcaption>
         </figure>

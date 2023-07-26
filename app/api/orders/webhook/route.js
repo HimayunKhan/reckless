@@ -10,7 +10,9 @@ import getRawBody from "raw-body";
 import Order from "@/app/backend/models/order";
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+const router = createRouter();
 
+dbConnect();
 async function getCartItems(line_items) {
   return new Promise((resolve, reject) => {
     let cartItems = [];
@@ -34,13 +36,12 @@ async function getCartItems(line_items) {
   });
 }
 
-const router = createRouter();
 
-dbConnect();
 
 router.post(async (req, res) => {
   try {
     const rawBody = await buffer(req.body);
+    console.log("rawBody",rawBody)
     const signature = req.headers.get("stripe-signature");
 
     const event = stripe.webhooks.constructEvent(
@@ -55,6 +56,7 @@ router.post(async (req, res) => {
       const line_items = await stripe.checkout.sessions.listLineItems(
         event.data.object.id
       );
+      console.log("line_itemssssssssssssss",line_items);
 
       const orderItems = await getCartItems(line_items);
       const userId = session.client_reference_id;
@@ -67,21 +69,27 @@ router.post(async (req, res) => {
         taxPaid: session.total_details.amount_tax / 100,
       };
 
+
+      // console.log("paymentInfo",paymentInfo)
+
       const orderData = {
         user: userId,
         shippingInfo: session.metadata.shippingInfo,
         paymentInfo,
         orderItems,
       };
-
+      // console.log("orderData",orderData)
+      
       const order = await Order.create(orderData);
-      //   res.status(201).json({ success: true });
+     
+      console.log("orderDetailsssssssss",order)
 
-      const res = {
+      const response = {
         success: true,
         message: "successfull transaction",
+        order
       };
-      return NextResponse.json(res);
+      return NextResponse.json(response);
       // return new Response("huhuhuu")
     }
   } catch (error) {

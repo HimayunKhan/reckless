@@ -13,12 +13,12 @@ const ProductItem = ({ product }) => {
 
   const addToCartHandler = () => {
     addItemToCart({
-      product: product._id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0].url,
-      stock: product.stock,
-      seller: product.seller,
+      product: product?._id,
+      name: product?.name,
+      price: product?.price,
+      image: product?.images[0]?.url,
+      stock: product?.stock,
+      seller: product?.seller,
     });
   };
 
@@ -71,7 +71,7 @@ const ProductItem = ({ product }) => {
               <span className="ml-1 text-yellow-500">{product?.ratings}</span>
             </div>
             <p className="text-gray-500 mb-2">
-              {product?.description.substring(0, 150)}...
+              {product?.description?.substring(0, 150)}...
             </p>
           </div>
         </div>

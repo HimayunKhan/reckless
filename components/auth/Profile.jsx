@@ -5,6 +5,7 @@ import UserAddresses from "../user/UserAddresses";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Profile = ({ addresses }) => {
   const { user } = useContext(AuthContext);
@@ -20,11 +21,13 @@ const Profile = ({ addresses }) => {
         >
         <figure className="flex items-start sm:items-center bg-color1 shadow-test2Shadow rounded-md p-4">
           <div className="relative">
-            <img
+            <Image
               className="w-16 h-16 rounded-full mr-4"
               // src={user?.avatar ? user?.avatar?.url : "/images/default.png"}
               src={user?.avatar?.url || user?.image || "/images/default.png"}
               alt={user?.name}
+              width={40}
+              height={40}
             />
           </div>
           <figcaption>

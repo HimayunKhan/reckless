@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const UpdateOrder = ({ order }) => {
   const { updateOrder, error, clearErrors, updated, setUpdated } =
     useContext(OrderContext);
-
   const [orderStatus, setOrderStatus] = useState(order?.orderStatus);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const UpdateOrder = ({ order }) => {
 
   const submitHandler = () => {
     const orderData = { orderStatus };
-
     updateOrder(order?._id, orderData);
   };
 

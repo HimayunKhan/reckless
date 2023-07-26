@@ -13,7 +13,7 @@ const BreadCrumbs = ({ breadCrumbs }) => {
                 className="text-gray-600 hover:text-blue-600"
                 key={breadCrumb.id}
               >
-                {breadCrumb.name}
+                {breadCrumb?.name}
               </Link>
               {breadCrumbs?.length - 1 !== index && (
                 <i className="ml-3 text-gray-400 fa fa-chevron-right"></i>

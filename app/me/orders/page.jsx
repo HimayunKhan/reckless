@@ -6,9 +6,7 @@ import queryString from "query-string";
 
 const getOrders = async (searchParams) => {
   const nextCookies = cookies();
-
   const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
-
   const urlParams = {
     page: searchParams.page || 1,
   };

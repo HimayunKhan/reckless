@@ -22,7 +22,13 @@ const getProducts = async (searchParams) => {
 };
 
 export default async function Home({ searchParams }) {
+  
   const productsData = await getProducts(searchParams);
 
   return <ListProducts data={productsData} />;
 }
+
+
+
+
+

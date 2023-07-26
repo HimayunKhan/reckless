@@ -5,14 +5,13 @@ import { createRouter } from "next-connect";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-
+import microCors from "micro-cors";
 import Stripe from "stripe";
-
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
-
 const router = createRouter();
 
 dbConnect();
+const cors = microCors();
 
 router.post(async (req, res) => {
   try {
@@ -22,20 +21,19 @@ router.post(async (req, res) => {
     const userID = sessionData?.user?.id;
     const user = sessionData?.user;
 
-
-    const line_items = items?.map((item) => {
+    const line_items = items.map((item) => {
       return {
         price_data: {
           currency: "inr",
           product_data: {
-            name: item?.name,
-            images: [item?.image],
-            metadata: { productId: item?.product },
+            name: item.name,
+            images: [item.image],
+            metadata: { productId: item.product },
           },
-          unit_amount: item?.price * 100,
+          unit_amount: item.price * 100,
         },
         tax_rates: ["txr_1NV711SHxFudyksW6igP12K8"],
-        quantity: item?.quantity,
+        quantity: item.quantity,
       };
     });
 
@@ -45,8 +43,8 @@ router.post(async (req, res) => {
       payment_method_types: ["card"],
       success_url: `${process.env.API_URL}/me/orders?order_success=true`,
       cancel_url: `${process.env.API_URL}`,
-      customer_email: user?.email,
-      client_reference_id: user?.id,
+      customer_email: user.email,
+      client_reference_id: user.id,
       mode: "payment",
       metadata: { shippingInfo },
       shipping_options: [
@@ -57,14 +55,15 @@ router.post(async (req, res) => {
       line_items,
     });
 
-    const res = {
+    const responseObj = {
       success: true,
       message: "all products checkout successfully",
-	  url:session.url,
+      url: session.url,
     };
 
-    return NextResponse.json(res);
-    // return new Response("himaaaaaaaaa")
+
+
+    return NextResponse.json(responseObj);
   } catch (error) {
     return createErrorResponse(error);
   }

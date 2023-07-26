@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
@@ -7,16 +6,16 @@ import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { parseCallbackUrl } from "@/helpers/helpers";
 import Image from "next/image";
+import { BsDatabase } from "react-icons/bs";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const router = useRouter();
   const params = useSearchParams();
   const callBackUrl = params.get("callbackUrl");
 
-  // const callbackUrlss = "/" || params.get("callbackUrl");
+
   const callbackUrlss = callBackUrl ? parseCallbackUrl(callBackUrl) : "/";
 
   const submitHandler = async (e) => {
@@ -24,16 +23,20 @@ const Login = () => {
     const data = await signIn("credentials", {
       email,
       password,
-      // redirect:false,
       callbackUrl: callBackUrl ? parseCallbackUrl(callBackUrl) : "/",
+      // redirect:false
     });
+
+  
 
     if (data?.error) {
       toast.error(data?.error);
+      setEmail("");
+      setPassword("");
     }
 
     if (data?.ok) {
-      router.push("/");
+      toast.success("Login successfull");
     }
   };
 

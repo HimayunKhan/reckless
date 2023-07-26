@@ -47,8 +47,6 @@ export const AuthProvider = ({ children }) => {
         });
         setUser(data);
         setLoading(false);
-
-      
       }
     } catch (error) {
       console.log("error", error);
@@ -69,11 +67,18 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      if (data?.user) {
-       
+      if (data) {
+        // setUser(data)
+        if (data?.message == "User registered successfully") {
+          toast.success("Registration successful");
+          router.replace("/login")
+        }
+        if(data?.error?.message=="Duplicate email entered"){
+          toast.error("User already registered")
+        }
       }
     } catch (error) {
-      console.log(error);
+    
       setError(error?.response?.data?.message);
     }
   };

@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 
 const NewAddress = () => {
   const { error, addNewAddress, clearErrors } = useContext(AuthContext);
-  const router=useRouter()
   const countriesList = Object.values(countries);
 
   const [street, setStreet] = useState("");
@@ -27,7 +26,6 @@ const NewAddress = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     const newAddress = {
       street,
       city,
@@ -38,7 +36,7 @@ const NewAddress = () => {
     };
 
     addNewAddress(newAddress);
-    // router.push("/me")
+   
   };
 
   return (
@@ -123,9 +121,9 @@ const NewAddress = () => {
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
                     >
-                      {countriesList.map((country) => (
-                        <option key={country.name} value={country.name}>
-                          {country.name}
+                      {countriesList?.map((country) => (
+                        <option key={country?.name} value={country?.name}>
+                          {country?.name}
                         </option>
                       ))}
                     </select>

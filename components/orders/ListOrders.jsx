@@ -10,8 +10,9 @@ const ListOrders = ({ orders }) => {
   const { clearCart } = useContext(CartContext);
   const params = useSearchParams();
   const router = useRouter();
-
   const orderSuccess = params.get("order_success");
+
+
 
   useEffect(() => {
     if (orderSuccess === "true") {
@@ -24,7 +25,7 @@ const ListOrders = ({ orders }) => {
     <>
       <h3 className="text-3xl font-semibold mb-5">YOUR ORDERS:</h3>
       {orders?.orders?.map((order) => (
-        <OrderItem key={order.id} order={order} />
+        <OrderItem key={order?._id} order={order} />
       ))}
 
       <CustomPagination

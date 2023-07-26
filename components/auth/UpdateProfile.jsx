@@ -1,6 +1,7 @@
 "use client";
 
 import AuthContext from "@/context/AuthContext";
+import Image from "next/image";
 import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
@@ -91,7 +92,7 @@ const UpdateProfile = () => {
             <label className="block mb-1"> Avatar </label>
             <div className="mb-4 flex flex-col md:flex-row">
               <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer md:w-1/5 lg:w-1/4">
-                <img className="w-14 h-14 rounded-full" src={avatarPreview} />
+                <Image className="w-14 h-14 rounded-full" src={avatarPreview} alt="avatarPreview" width={20} height={20}/>
               </div>
               <div className="md:w-2/3 lg:w-80">
                 <input

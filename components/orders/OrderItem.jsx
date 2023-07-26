@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 const OrderItem = ({ order }) => {
+ 
   return (
     <article className="p-3 lg:p-5 mb-5 bg-color1 shadow-testShadow rounded-md">
       <header className="lg:flex justify-between mb-4">
@@ -57,21 +58,21 @@ const OrderItem = ({ order }) => {
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-2">
         {order?.orderItems?.map((item) => (
-          <figure className="flex flex-row mb-4">
+          <figure key={item?._id}className="flex flex-row mb-4">
             <div>
               <div className="block w-20 h-20 rounded border border-gray-200 overflow-hidden p-3">
                 <Image
                   src={item?.image}
                   height="60"
                   width="60"
-                  alt={item.name}
+                  alt={item?.name}
                 />
               </div>
             </div>
             <figcaption className="ml-3">
-              <p>{item.name.substring(0, 35)}</p>
+              <p>{item?.name?.substring(0, 35)}</p>
               <p className="mt-1 font-semibold">
-                {item.quantity}x = ${item.price * item.quantity}
+                {item?.quantity}x = ${item?.price * item?.quantity}
               </p>
             </figcaption>
           </figure>
