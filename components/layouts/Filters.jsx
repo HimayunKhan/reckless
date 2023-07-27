@@ -1,227 +1,311 @@
-"use client";
+// "use client"
 
-import React, { useState } from "react";
+
+// import React, { useContext, useState } from "react";
+// import AuthContext from "@/context/AuthContext";
+// import StarRatings from "react-star-ratings";
+
+// const Filters = () => {
+//   const { filteredProducts, setFilteredProducts, AllProductsData } =
+//     useContext(AuthContext);
+
+//   const [minPrice, setMinPrice] = useState("");
+//   const [maxPrice, setMaxPrice] = useState("");
+//   const [category, setCategory] = useState("");
+//   const [ratings, setRatings] = useState("");
+
+//   const onFilter = ({ minPrice, maxPrice, category, ratings }) => {
+//     if (!minPrice && !maxPrice && !category && !ratings) {
+//       // If no filters applied, set filteredProducts back to AllProductsData
+//       setFilteredProducts(AllProductsData);
+//       return;
+//     }
+
+//     // Perform the filtering logic here based on the provided criteria
+//     const filteredResults = AllProductsData.filter((product) => {
+//       const withinPriceRange =
+//         (!minPrice || product.price >= minPrice) &&
+//         (!maxPrice || product.price <= maxPrice);
+
+//       const matchesCategory =
+//         !category || product.category.toLowerCase() === category.toLowerCase();
+
+//       const matchesRatings = isNaN(ratings) || product.ratings >= ratings;
+
+//       return withinPriceRange && matchesCategory && matchesRatings;
+//     });
+
+//     setFilteredProducts(filteredResults);
+//   };
+
+//   const handleFilter = () => {
+//     // Convert ratings to a number if it's provided
+//     const parsedRatings = ratings ? parseInt(ratings, 10) : "";
+
+//     // Pass the filter criteria back to the parent component
+//     onFilter({ minPrice, maxPrice, category, ratings: parsedRatings });
+//   };
+
+//   // Rest of the code remains the same
+//   // ...
+
+//   return (
+//     <div className="bg-gray-100 p-4 shadow-md rounded-md">
+//       <h3 className="text-lg font-semibold mb-2">Filter Products</h3>
+//       <div className="grid grid-cols-2 gap-4">
+//         <input
+//           type="number"
+//           placeholder="Min Price"
+//           value={minPrice}
+//           onChange={(e) => setMinPrice(e.target.value)}
+//           className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
+//         />
+//         <input
+//           type="number"
+//           placeholder="Max Price"
+//           value={maxPrice}
+//           onChange={(e) => setMaxPrice(e.target.value)}
+//           className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
+//         />
+
+//         {/* category */}
+//         <div className="col-span-2">
+//           <p className="font-semibold">Category</p>
+//           <div className="flex flex-col">
+//             <label className="">
+//               <input
+//                 type="radio"
+//                 name="category"
+//                 value=""
+//                 checked={!category}
+//                 onChange={() => setCategory("")}
+//                 className="form-radio h-5 w-5 text-blue-600"
+//               />
+//               <span className="ml-2">All</span>
+//             </label>
+//             <label className="">
+//               <input
+//                 type="radio"
+//                 name="category"
+//                 value="Electronics"
+//                 checked={category === "Electronics"}
+//                 onChange={() => setCategory("Electronics")}
+//                 className="form-radio h-5 w-5 text-blue-600"
+//               />
+//               <span className="ml-2">Electronics</span>
+//             </label>
+//             <label className="">
+//               <input
+//                 type="radio"
+//                 name="category"
+//                 value="Headphones"
+//                 checked={category === "Headphones"}
+//                 onChange={() => setCategory("Headphones")}
+//                 className="form-radio h-5 w-5 text-blue-600"
+//               />
+//               <span className="ml-2">Headphones</span>
+//             </label>
+//             {/* Add other category radio buttons as needed */}
+//           </div>
+//         </div>
+
+//         {/* Ratings */}
+//         <div>
+//           <p className="font-semibold mb-2">Ratings</p>
+//           <ul className="">
+//             <li>
+//               {[5, 4, 3, 2, 1].map((rating) => (
+//                 <label key={rating} className="flex items-center">
+//                   <input
+//                     name="ratings"
+//                     type="checkbox"
+//                     value={rating}
+//                     className="h-4 w-4"
+//                     // defaultChecked={checkHandler("ratings", `${rating}`)}
+//                     onClick={(e) => setRatings(e.target.value)}
+//                   />
+//                   <span className="ml-2 text-gray-500">
+//                     {" "}
+//                     <StarRatings
+//                       rating={rating}
+//                       starRatedColor="#ffb829"
+//                       numberOfStars={5}
+//                       starDimension="20px"
+//                       starSpacing="2px"
+//                       name="rating"
+//                     />{" "}
+//                   </span>
+//                 </label>
+//               ))}
+//             </li>
+//           </ul>
+//         </div>
+//       </div>
+//       <button
+//         onClick={handleFilter}
+//         className="bg-blue-500 hover:bg-blue-600 text-white mt-4 px-4 py-2 rounded-md"
+//       >
+//         Apply Filters
+//       </button>
+//     </div>
+//   );
+// };
+
+// export default Filters;
+
+
+
+import React, { useContext, useState, useEffect, useRef } from "react";
+import AuthContext from "@/context/AuthContext";
 import StarRatings from "react-star-ratings";
-import { useRouter } from "next/navigation";
-import { getPriceQueryParams } from "@/helpers/helpers";
 
 const Filters = () => {
-  const [min, setMin] = useState("");
-  const [max, setMax] = useState("");
+  const { filteredProducts, setFilteredProducts, AllProductsData } =
+    useContext(AuthContext);
 
-  const router = useRouter();
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState("");
 
-  let queryParams;
+  // Use useRef to store the previous filtered state
+  const prevFilteredProducts = useRef(filteredProducts);
 
-  function handleClick(checkbox) {
-    if (typeof window !== "undefined") {
-      queryParams = new URLSearchParams(window.location.search);
-    }
+  useEffect(() => {
+    // Perform the filtering logic here based on the provided criteria
+    const filteredResults = AllProductsData.filter((product) => {
+      const withinPriceRange =
+        (!minPrice || product.price >= minPrice) &&
+        (!maxPrice || product.price <= maxPrice);
 
-    const checkboxes = document.getElementsByName(checkbox.name);
+      const matchesCategory =
+        !category || product.category.toLowerCase() === category.toLowerCase();
 
-    checkboxes.forEach((item) => {
-      if (item !== checkbox) item.checked = false;
+      const matchesRatings = isNaN(ratings) || product.ratings >= ratings;
+
+      return withinPriceRange && matchesCategory && matchesRatings;
     });
 
-    if (checkbox.checked === false) {
-      // Delete the filter from query
-      queryParams.delete(checkbox.name);
-    } else {
-      // Set filter in the query
-      if (queryParams.has(checkbox.name)) {
-        queryParams.set(checkbox.name, checkbox.value);
-      } else {
-        queryParams.append(checkbox.name, checkbox.value);
-      }
-    }
-    const path = window.location.pathname + "?" + queryParams.toString();
-    router.push(path);
-  }
+    setFilteredProducts(filteredResults);
 
-  function handleButtonClick() {
-    if (typeof window !== "undefined") {
-      queryParams = new URLSearchParams(window.location.search);
+    // Update the previous filtered state whenever new filters are applied
+    prevFilteredProducts.current = filteredResults;
+  }, [minPrice, maxPrice, category, ratings, AllProductsData, setFilteredProducts]);
 
-      queryParams = getPriceQueryParams(queryParams, "min", min);
-      queryParams = getPriceQueryParams(queryParams, "max", max);
+  const handleResetFilters = () => {
+    // Reset all filters and revert to the previous filtered state
+    setMinPrice("");
+    setMaxPrice("");
+    setCategory("");
+    setRatings("");
+    setFilteredProducts(prevFilteredProducts.current);
+  };
 
-      const path = window.location.pathname + "?" + queryParams.toString();
-      router.push(path);
-    }
-  }
-
-  function checkHandler(checkBoxType, checkBoxValue) {
-    if (typeof window !== "undefined") {
-      queryParams = new URLSearchParams(window.location.search);
-
-      const value = queryParams.get(checkBoxType);
-      if (checkBoxValue === value) return true;
-      return false;
-    }
-  }
+  // Rest of the code remains the same
+  // ...
 
   return (
-    <aside className="md:w-1/3 lg:w-1/4 px-4">
-      <a
-        className="md:hidden mb-5  w-full text-center px-4 py-2 inline-block text-lg text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:text-blue-600"
-        href="#"
-      >
-        Filter by
-      </a>
-      <div className="hidden md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
-        <h3 className="font-semibold mb-2">Price ($)</h3>
-        <div className="grid md:grid-cols-3 gap-x-2">
-          <div className="mb-4">
-            <input
-              name="min"
-              className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-              type="number"
-              placeholder="Min"
-              value={min}
-              onChange={(e) => setMin(e.target.value)}
-            />
-          </div>
+    <div className="bg-gray-100 p-4 shadow-md rounded-md">
+      <h3 className="text-lg font-semibold mb-2">Filter Products</h3>
+      <div className="grid grid-cols-2 gap-4">
+        <input
+          type="number"
+          placeholder="Min Price"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
+        />
+        <input
+          type="number"
+          placeholder="Max Price"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none"
+        />
 
-          <div className="mb-4">
-            <input
-              name="max"
-              className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
-              type="number"
-              placeholder="Max"
-              value={max}
-              onChange={(e) => setMax(e.target.value)}
-            />
+        {/* category */}
+        <div className="col-span-2">
+          <p className="font-semibold">Category</p>
+          <div className="flex flex-col">
+            <label className="">
+              <input
+                type="radio"
+                name="category"
+                value=""
+                checked={!category}
+                onChange={() => setCategory("")}
+                className="form-radio h-5 w-5 text-blue-600"
+              />
+              <span className="ml-2">All</span>
+            </label>
+            <label className="">
+              <input
+                type="radio"
+                name="category"
+                value="Electronics"
+                checked={category === "Electronics"}
+                onChange={() => setCategory("Electronics")}
+                className="form-radio h-5 w-5 text-blue-600"
+              />
+              <span className="ml-2">Electronics</span>
+            </label>
+            <label className="">
+              <input
+                type="radio"
+                name="category"
+                value="Headphones"
+                checked={category === "Headphones"}
+                onChange={() => setCategory("Headphones")}
+                className="form-radio h-5 w-5 text-blue-600"
+              />
+              <span className="ml-2">Headphones</span>
+            </label>
+            {/* Add other category radio buttons as needed */}
           </div>
+        </div>
 
-          <div className="mb-4">
-            <button
-              className="px-1 py-2 text-center w-full inline-block text-white bg-black border border-transparent rounded-md hover:bg-customGold"
-              onClick={handleButtonClick}
-            >
-              Go
-            </button>
-          </div>
+        {/* Ratings */}
+        <div>
+          <p className="font-semibold mb-2">Ratings</p>
+          <ul className="">
+            <li>
+              {[5, 4, 3, 2, 1].map((rating) => (
+                <label key={rating} className="flex items-center">
+                  <input
+                    name="ratings"
+                    type="checkbox"
+                    value={rating}
+                    className="h-4 w-4"
+                    onClick={(e) => setRatings(e.target.value)}
+                  />
+                  <span className="ml-2 text-gray-500">
+                    {" "}
+                    <StarRatings
+                      rating={rating}
+                      starRatedColor="#ffb829"
+                      numberOfStars={5}
+                      starDimension="20px"
+                      starSpacing="2px"
+                      name="rating"
+                    />{" "}
+                  </span>
+                </label>
+              ))}
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div className="hidden md:block px-6 py-4 border border-gray-200 bg-white rounded shadow-sm">
-        <h3 className="font-semibold mb-2">Category</h3>
-
-        <ul className="space-y-1">
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="Electronics"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Electronics")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> Electronics </span>
-            </label>
-          </li>
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="Laptops"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Laptops")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> Laptops </span>
-            </label>
-          </li>
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="Cameras"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Cameras")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> Cameras </span>
-            </label>
-          </li>
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="shirt"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "shirt")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> shirt </span>
-            </label>
-          </li>
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="Headphones"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "Headphones")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> Headphones </span>
-            </label>
-          </li>
-          <li>
-            <label className="flex items-center">
-              <input
-                name="category"
-                type="checkbox"
-                value="mobile"
-                className="h-4 w-4"
-                defaultChecked={checkHandler("category", "mobile")}
-                onClick={(e) => handleClick(e.target)}
-              />
-              <span className="ml-2 text-gray-500"> mobile </span>
-            </label>
-          </li>
-        </ul>
-
-        <hr className="my-4" />
-
-        <h3 className="font-semibold mb-2">Ratings</h3>
-        <ul className="space-y-1">
-          <li>
-            {[5, 4, 3, 2, 1].map((rating) => (
-              <label key={rating} className="flex items-center">
-                <input
-                  name="ratings"
-                  type="checkbox"
-                  value={rating}
-                  className="h-4 w-4"
-                  defaultChecked={checkHandler("ratings", `${rating}`)}
-                  onClick={(e) => handleClick(e.target)}
-                />
-                <span className="ml-2 text-gray-500">
-                  {" "}
-                  <StarRatings
-                    rating={rating}
-                    starRatedColor="#ffb829"
-                    numberOfStars={5}
-                    starDimension="20px"
-                    starSpacing="2px"
-                    name="rating"
-                  />{" "}
-                </span>
-              </label>
-            ))}
-          </li>
-        </ul>
-      </div>
-    </aside>
+      <button
+        onClick={handleResetFilters}
+        className="bg-red-500 hover:bg-red-600 text-white mt-4 px-4 py-2 rounded-md"
+      >
+        Reset Filters
+      </button>
+    </div>
   );
 };
 
 export default Filters;
+
+

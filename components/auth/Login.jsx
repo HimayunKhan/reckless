@@ -93,7 +93,7 @@ const Login = () => {
               // onClick={() => signIn("google", { callbackUrlss})}
               className="  bg-black text-white rounded-lg  p-2 text-[24px] "
             >
-              <Image src="/images/googleLogo1.png" width={40} height={40} />
+              <Image src="/images/googleLogo1.png" width={40} height={40} alt="googleLogo" />
             </button>
           </div>
           <p className="text-center mt-5">

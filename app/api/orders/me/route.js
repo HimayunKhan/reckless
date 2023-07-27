@@ -24,26 +24,26 @@ router.get(async (req, res) => {
 	  const userID = session?.user?.id;
 	
 	  const resPerPage = 2;
-	  const ordersCount = await Order.countDocuments();
 	  
 	  const apiFilters = new APIFilters(Order.find(), searchQuery).pagination(
 		  resPerPage
 		  );
-
-
+		  
+		  
 		  const orders = await apiFilters.query
 		  .find({ user: userID })
 		  .populate({
-			path: "shippingInfo",
-			model: "Address",
-		  })
-		  .populate({
-			path: "user",
-			model: "User",
-		  })
-		  .exec();
-		
-	
+			  path: "shippingInfo",
+			  model: "Address",
+			})
+			.populate({
+				path: "user",
+				model: "User",
+			})
+			.exec();
+			
+			
+			const ordersCount = orders.length
 	
     const res = {
       success: true,

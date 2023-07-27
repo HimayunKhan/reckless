@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import ListOrders from "@/components/orders/ListOrders";
 import queryString from "query-string";
 
+
 const getOrders = async (searchParams) => {
   const nextCookies = cookies();
   const nextAuthSessionToken = nextCookies.get("next-auth.session-token");

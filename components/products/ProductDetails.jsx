@@ -76,7 +76,7 @@ const ProductDetails = ({ product }) => {
                   <a
                     className="inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer"
                     onClick={() => setImgPreview(img?.url)}
-                    key={img?.id}
+                    key={img?._id}
                   >
                     <img
                       className="w-14 h-14"

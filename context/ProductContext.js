@@ -14,6 +14,10 @@ export const ProductProvider = ({ children }) => {
 
   const router = useRouter();
 
+
+
+ 
+
   const updateProduct = async (product, id) => {
     try {
       const { data } = await axios.put(

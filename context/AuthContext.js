@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useSession, mutate } from "next-auth/react";
 import { toast } from "react-toastify";
 
@@ -14,8 +14,28 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(null);
   const [updated, setUpdated] = useState(false);
   const { data: session, update } = useSession();
+  const [AllProductsData, setAllProductsData] = useState([]);
+  // const [FilteredProducts, setFilteredProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(AllProductsData);
+
+ 
 
   const router = useRouter();
+
+  useEffect(() => {
+    // Fetch products data when the component mounts
+    allProducts();
+  }, []);
+
+  const allProducts = async () => {
+    try {
+      const data = await axios.get(`${process.env.API_URL}/api/allproducts`);
+      setAllProductsData(data?.data?.data);
+      setFilteredProducts(data?.data?.data);
+    } catch (error) {
+      setError(error?.response?.data?.message);
+    }
+  };
 
   const updateProfile = async (formData) => {
     try {
@@ -46,12 +66,15 @@ export const AuthProvider = ({ children }) => {
           user: { ...session.user, ...data },
         });
         setUser(data);
+        toast.success("profile updated successfully");
         setLoading(false);
+        router.push("/login");
       }
     } catch (error) {
       console.log("error", error);
       setLoading(false);
       setError(error);
+      toast.error("please try again");
     }
   };
 
@@ -71,14 +94,13 @@ export const AuthProvider = ({ children }) => {
         // setUser(data)
         if (data?.message == "User registered successfully") {
           toast.success("Registration successful");
-          router.replace("/login")
+          router.replace("/login");
         }
-        if(data?.error?.message=="Duplicate email entered"){
-          toast.error("User already registered")
+        if (data?.error?.message == "Duplicate email entered") {
+          toast.error("User already registered");
         }
       }
     } catch (error) {
-    
       setError(error?.response?.data?.message);
     }
   };
@@ -109,10 +131,12 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data?.success) {
+        toast.success("password updated successfully");
         router.replace("/me");
       }
     } catch (error) {
       console.log(error.response);
+      toast.error("password updated fail, please try again");
       setError(error?.response?.data?.message);
     }
   };
@@ -202,6 +226,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        AllProductsData,
+        setAllProductsData,
+        allProducts,
+        filteredProducts,
+        setFilteredProducts,
         error,
         loading,
         updated,
