@@ -24,7 +24,7 @@ const Search = () => {
 
   return (
     <>
-      <div className="flex  w-[50%]  h-10 hidden md:inline-flex items-center justify-between relative">
+      <div className="flex  w-[60%]  h-10 hidden md:inline-flex items-center justify-between relative">
         <input
           onChange={handleSearch}
           value={searchQuery}
@@ -32,12 +32,12 @@ const Search = () => {
           type="text"
           placeholder="Search "
         />
-        <span className="w-12 h-full bg-amazon_yellow text-black text-2xl flex items-center justify-center absolute right-0 rounded-tr-md rounded-br-md">
+        <span className="w-12 h-full bg-customGold text-black text-2xl flex items-center justify-center absolute right-0 rounded-tr-md rounded-br-md">
           <HiOutlineSearch />
         </span>
         {/* ========== Searchfield ========== */}
         {searchQuery && (
-          <div className="absolute z-10 left-0 top-12 w-full mx-auto max-h-96 bg-gray-200 rounded-lg overflow-y-scroll cursor-pointer text-black">
+          <div className=" mild-black absolute z-30 left-0 top-12 w-full mx-auto max-h-96 bg-color1 rounded-lg overflow-y-scroll cursor-pointer text-black">
             {filteredProducts.length > 0 ? (
               <>
                 {searchQuery &&

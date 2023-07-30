@@ -9,10 +9,7 @@ import BreadCrumbs from "../layouts/BreadCrumbs";
 
 const Shipping = ({ addresses }) => {
   const { cart } = useContext(CartContext);
-
-
   const [shippingInfo, setShippinInfo] = useState("");
-
   const setShippingAddress = (address) => {
     setShippinInfo(address._id);
   };
@@ -51,13 +48,15 @@ const Shipping = ({ addresses }) => {
           <div className="flex flex-col md:flex-row gap-4 lg:gap-8">
             <main className="md:w-2/3">
               <article className="border border-gray-200 bg-white shadow-sm rounded p-4 lg:p-6 mb-5">
-                <h2 className="text-xl font-semibold mb-5">Shipping information</h2>
+                <h2 className="text-xl font-semibold mb-5">
+                  Shipping information
+                </h2>
 
                 <div className="grid sm:grid-cols-2 gap-4 mb-6">
                   {addresses?.map((address) => (
                     <label
-                    key={address._id}
-                    className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
+                      key={address._id}
+                      className="flex p-3 border border-gray-200 rounded-md bg-gray-50 hover:border-blue-400 hover:bg-blue-50 cursor-pointer"
                       onClick={() => setShippingAddress(address)}
                     >
                       <span>
@@ -129,7 +128,10 @@ const Shipping = ({ addresses }) => {
                 <h2 className="text-lg font-semibold mb-3">Items in cart</h2>
 
                 {cart?.cartItems?.map((item) => (
-                  <figure key={item.product} className="flex items-center mb-4 leading-5">
+                  <figure
+                    key={item.product}
+                    className="flex items-center mb-4 leading-5"
+                  >
                     <div>
                       <div className="block relative w-20 h-20 rounded p-1 border border-gray-200">
                         <img
@@ -161,4 +163,3 @@ const Shipping = ({ addresses }) => {
 };
 
 export default Shipping;
-

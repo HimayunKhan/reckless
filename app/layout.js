@@ -3,8 +3,8 @@ import "./globals.css";
 import { GlobalProvider } from "./GlobalProvider";
 import Providers from "@/components/Providers";
 import Footer from "@/components/layouts/Footer";
-import Navbar from "@/components/layouts/Navbar";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import BottomHeader from "@/components/layouts/BottomHeader";
 
 
 
@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <GlobalProvider>
             <Header />
+            {/* <BottomHeader/> */}
             {children}
             <Footer />
           </GlobalProvider>

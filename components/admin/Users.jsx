@@ -54,7 +54,7 @@ const Users = ({ data }) => {
                     href={`/admin/users/${user?._id}`}
                     className="px-2 py-2 inline-block text-yellow-600 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 cursor-pointer mr-2"
                   >
-                    {/* <i className="fa fa-pencil" aria-hidden="true"></i> */}
+                  
                     <FaPencilAlt />
 
                   </Link>

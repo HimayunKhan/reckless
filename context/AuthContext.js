@@ -152,6 +152,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.success) {
         setUpdated(true);
+        window.location.reload();
         router.replace(`/admin/users/${id}`);
       }
     } catch (error) {

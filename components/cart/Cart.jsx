@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useContext } from "react";
-
 import CartContext from "@/context/CartContext";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
+
+
 
 const Cart = () => {
   const { addItemToCart, deleteItemFromCart, cart, saveOnCheckout } =
@@ -14,18 +15,14 @@ const Cart = () => {
   const increaseQty = (cartItem) => {
     const newQty = cartItem?.quantity + 1;
     const item = { ...cartItem, quantity: newQty };
-
     if (newQty > Number(cartItem.stock)) return;
-
     addItemToCart(item);
   };
 
   const decreaseQty = (cartItem) => {
     const newQty = cartItem?.quantity - 1;
     const item = { ...cartItem, quantity: newQty };
-
     if (newQty <= 0) return;
-
     addItemToCart(item);
   };
 
@@ -34,7 +31,6 @@ const Cart = () => {
     .toFixed(2);
 
   const taxAmount = (amountWithoutTax * 0.15).toFixed(2);
-
   const totalAmount = (Number(amountWithoutTax) + Number(taxAmount)).toFixed(2);
 
   const checkoutHandler = () => {
@@ -46,6 +42,7 @@ const Cart = () => {
 
     saveOnCheckout(data);
   };
+
 
   return (
     <>
@@ -114,9 +111,9 @@ const Cart = () => {
                             </div>
                             <figcaption className="ml-3">
                               <p>
-                                <a href="#" className="hover:text-blue-600">
+                                <Link href={`/product/${cartItem?.product}`} className="hover:text-customGold">
                                   {cartItem.name}
-                                </a>
+                                </Link>
                               </p>
                               <p className="mt-1 text-gray-400">
                                 {" "}

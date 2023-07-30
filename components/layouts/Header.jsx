@@ -15,13 +15,8 @@ import FullScreenMobileMenu from "./FullScreenMobileMenu";
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
   const { data } = useSession();
-
-
-  console.log("daataaa",data)
   const [menuopen, setmenuopen] = useState(false);
   const { cart } = useContext(CartContext);
-
-  // Memoize cart items to prevent unnecessary re-renders
   const cartItems = useMemo(() => cart?.cartItems, [cart?.cartItems]);
 
   useEffect(() => {
@@ -30,7 +25,6 @@ const Header = () => {
     }
   }, [data]);
 
-  // Memoized JSX elements to prevent unnecessary re-renders
   const cartIcon = useMemo(
     () => (
       <Link href="/cart">
@@ -75,33 +69,32 @@ const Header = () => {
     [user?.avatar?.url, user?.image, user]
   );
 
-  // Memoized header JSX to prevent unnecessary re-renders
   const memoizedHeader = useMemo(
     () => (
       <>
         {menuopen && <FullScreenMobileMenu setopen={setmenuopen} user={user} />}
 
-        <header className="bg-black py-2 border-b">
+        <header className="bg-black ">
           <div className="container max-w-screen-xl mx-auto px-4">
             <div className="flex flex-wrap items-center">
               <div className="flex-shrink-0 mr-5">
                 <a href="/">
                   <Image
+                    className="w-[200px] md:w-[240px]"
                     src="/images/chokhaLogo.png"
                     height={80}
                     width={160}
                     alt="chokhaLogo"
                     priority={true}
-                    style={{
-                      objectFit: "contain",
-                      width: "auto",
-                      height: "auto",
-                    }}
+                    // style={{
+                    //   objectFit: "contain",
+                    //   width: "auto",
+                    //   height: "auto",
+                    // }}
                   />
                 </a>
               </div>
 
-              
               {/* Searchbar */}
               <Search />
 
@@ -111,13 +104,13 @@ const Header = () => {
                   {userIcon}
                 </div>
               </div>
-              <div className="md:hidden ml-2">
+              <div className="md:hidden ml-20">
                 <button
                   type="button"
-                  className="bg-white p-3 inline-flex items-center rounded-md text-black hover:bg-gray-200 hover:text-gray-800 border border-transparent"
+                  className="bg-black p-3 inline-flex items-center rounded-md text-black hover:bg-gray-200 hover:text-gray-800 border border-transparent"
                   onClick={() => setmenuopen(true)}
                 >
-                  <FaBars size="1.5rem" />
+                  <FaBars size="2rem" className="text-customGold" />
                 </button>
               </div>
             </div>

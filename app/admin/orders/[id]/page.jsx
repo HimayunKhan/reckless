@@ -5,8 +5,6 @@ import UpdateOrder from "@/components/admin/UpdateOrder";
 
 
 
-
-
 const getOrder = async (id) => {
   const nextCookies = cookies();
   const nextAuthSessionToken = nextCookies.get("next-auth.session-token");

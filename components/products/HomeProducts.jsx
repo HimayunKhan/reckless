@@ -21,23 +21,24 @@ const HomeProducts = ({ data }) => {
   };
 
   return (
-    <div className=" w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <div className=" w-full px-6  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {data?.map((item) => (
+        
         <div
           key={item?._id}
-          className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden"
+          className="w-full bg-color1 shadow-testShadow text-black border border-gray-300 rounded-lg group overflow-hidden"
         >
           <div className="w-full h-[260px] relative">
             <Link href={`/product/${item?._id}`}>
               <img
                 src={item?.images[0]?.url}
-                className="w-full h-full object-cover scale-90 hover:scale-100 transition-transform duration-300"
+                className="w-full h-full object-cover scale-100 hover:scale-90 transition-transform duration-300"
                 width={300}
                 height={300}
                 alt="productImage"
               />
             </Link>
-            <div className="w-12 h-24 absolute bottom-10 right-0 border-[1px] border-gray-400 bg-white rounded-md flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
+            <div className="w-12 h-24 absolute bottom-20 right-0 border-[1px] border-gray-400 bg-white rounded-md flex flex-col translate-x-20 group-hover:translate-x-0 transition-transform duration-300">
               <span
                 onClick={() =>
                   addToCartHandler(
@@ -62,7 +63,7 @@ const HomeProducts = ({ data }) => {
             </div>
 
             {
-              <p className="absolute top-0 right-0 text-amazon_blue font-medium text-xs tracking-wide animate-bounce">
+              <p className="absolute bottom-1 bg-customGold rounded-lg right-3 p-4 text-amazon_blue font-medium text-xs tracking-wide animate-bounce">
                 !save {item?.price}
               </p>
             }
@@ -78,7 +79,7 @@ const HomeProducts = ({ data }) => {
               </span>
             </p>
             <p className="text-xs text-gray-600 text-justify">
-              {item?.description?.substring(0, 150)}
+              {item?.description?.substring(0, 120)}...
             </p>
             <button
               onClick={() =>
@@ -91,7 +92,7 @@ const HomeProducts = ({ data }) => {
                   item?.seller
                 )
               }
-              className="h-10 font-medium bg-black text-white rounded-md hover:bg-amazon_yellow hover:text-black duration-300 mt-2"
+              className="h-10 font-medium bg-black text-customGold rounded-md hover:bg-customGold hover:text-black duration-300 mt-2"
             >
               add to cart
             </button>

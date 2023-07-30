@@ -1,15 +1,8 @@
 import dbConnect from "@/app/backend/config/dbConnect";
 import createErrorResponse from "@/app/backend/middlewares/errors";
 import { createRouter } from "next-connect";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import Order from "@/app/backend/models/order";
-import APIFilters from "@/app/backend/utils/APIFilters";
-import Address from "@/app/backend/models/address";
 import User from "@/app/backend/models/user";
-import { myOrders } from "@/app/backend/controllers/orderControllers";
-import order from "@/app/backend/models/order";
 
 const router = createRouter();
 
@@ -21,7 +14,7 @@ router.get(async (req, res, context) => {
     const pathnameParts = productURL.pathname.split("/");
     const productId = pathnameParts[pathnameParts.length - 1];
 
-    const userdetails = await User.findById(productId)
+    const userdetails = await User.findById(productId);
 
     if (!userdetails) return new Response("No User Found");
 
@@ -41,28 +34,26 @@ export async function GET(request, ctx) {
   return router.run(request, ctx);
 }
 
-
-
-
-
-
 export async function PUT(request, context) {
   try {
-    dbConnect();
+    // dbConnect();
 
     const id = context.params.id;
-
     const userData = await request.json();
-
     let user = await User.findById(id);
 
     if (!user) {
       return new Response("No user with this id.", 404);
     }
 
-    user = await User.findByIdAndUpdate(id, userData, {
+    console.log("iddddsss", id);
+    console.log("dddddddddd", userData);
+
+    user = await User.findByIdAndUpdate(id, userData.userData, {
       new: true,
     });
+
+    console.log("userrrr", user);
 
     const res = {
       success: true,

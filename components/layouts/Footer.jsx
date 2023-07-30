@@ -31,12 +31,12 @@ const Footer = () => {
     }
   };
   return (
-    <div className="w-full bg-[#F5F5F3] py-10 border-t-[2px]">
+    <div className="w-full bg-black py-10 border-t-[2px]">
       <div className="max-w-container mx-auto grid grid-cols-1 md:grid-cols-2  xl:grid-cols-6 px-4 gap-10">
         <div className="col-span-2">
           <FooterListTitle title=" More about Chokha Shop" />
           <div className="flex flex-col gap-6">
-            <p className="text-base w-full xl:w-[80%] ">
+            <p className="text-lightText w-full xl:w-[80%] ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim sint
               ab ullam, numquam nesciunt in.
             </p>
@@ -46,7 +46,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <li className="w-7 h-7 bg-black  text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                <li className="w-7 h-7 bg-black  text-red-700 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaYoutube />
                 </li>
               </a>
@@ -55,7 +55,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <li className="w-7 h-7 bg-black text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                <li className="w-7 h-7 bg-black text-white hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaGithub />
                 </li>
               </a>
@@ -64,7 +64,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <li className="w-7 h-7 bg-black text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                <li className="w-7 h-7 bg-black text-blue-700 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaFacebook />
                 </li>
               </a>
@@ -73,7 +73,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <li className="w-7 h-7  bg-black text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                <li className="w-7 h-7  bg-black text-blue-900 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaLinkedin />
                 </li>
               </a>
@@ -123,7 +123,7 @@ const Footer = () => {
         <div className="col-span-2 flex flex-col items-center w-full px-4">
           <FooterListTitle title="Subscribe to our newsletter." />
           <div className="w-full">
-            <p className="text-center mb-4">
+            <p className="text-center text-lightText mb-4">
               A at pellentesque et mattis porta enim elementum.
             </p>
             {subscription ? (
@@ -131,7 +131,7 @@ const Footer = () => {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="w-full text-center text-base font-titleFont font-semibold text-green-600"
+                className="w-full text-center text-customGold font-titleFont font-semibold text-green-600"
               >
                 Subscribed Successfully !
               </motion.p>

@@ -1,10 +1,7 @@
 import Profile from "@/components/auth/Profile";
 import axios from "axios";
 import React from "react";
-import { getSession } from "next-auth/react";
 import { cookies } from "next/headers";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const getAddresses = async () => {
   const nextCookies = cookies();

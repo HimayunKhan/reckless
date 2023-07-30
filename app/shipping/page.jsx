@@ -1,8 +1,9 @@
 import axios from "axios";
-import React from "react";
-
 import { cookies } from "next/headers";
 import Shipping from "@/components/cart/Shipping";
+import Loader from "@/components/layouts/Loader";
+import React, { Suspense, lazy } from "react";
+
 
 const getAddresses = async () => {
   const nextCookies = cookies();
@@ -15,14 +16,21 @@ const getAddresses = async () => {
     },
   });
 
-  return data?.data?.AllAddress
+  return data?.data?.AllAddress;
 };
 
 const ShippingPage = async () => {
   const addresses = await getAddresses();
-  
-
-  return <Shipping addresses={addresses} />;
+return(
+  <Suspense
+    fallback={
+      <div className="text-center text-32  text-black">
+        <Loader />
+      </div>
+    }
+  >
+    <Shipping addresses={addresses} />;
+  </Suspense>)
 };
 
 export default ShippingPage;
