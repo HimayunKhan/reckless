@@ -4,6 +4,8 @@ import { GlobalProvider } from "./GlobalProvider";
 import Providers from "@/components/Providers";
 import Footer from "@/components/layouts/Footer";
 import Navbar from "@/components/layouts/Navbar";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 
 
 export const metadata = {

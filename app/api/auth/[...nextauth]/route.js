@@ -1,6 +1,6 @@
 import clientPromise from "@/lib/mongodb";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import User from "../../../backend/models/user"; // Update the path accordingly
+import User from "../../../backend/models/user"; 
 import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -9,9 +9,20 @@ import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions = {
   providers: [
+    
+
+
+
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID??"" ,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET ??"",
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code"
+        }
+      }
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -21,19 +32,19 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         mongooseConnect(); // Connect to the database
-
         const { email, password } = credentials;
-
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
-          throw new Error("Invalid Email or Password");
+          // throw new Error("Invalid Email or Password");
+          return null;
         }
 
         const isPasswordMatched = await bcrypt.compare(password, user.password);
 
         if (!isPasswordMatched) {
-          throw new Error("Invalid Email or Password");
+          // throw new Error("Invalid Email or Password");
+          return null;
         }
 
         return { ...user._doc, id: user._id.toString() };
@@ -52,20 +63,12 @@ export const authOptions = {
     },
     session: async ({ session, token }) => {
       session.user = token.user;
-
-      // delete password from session
       delete session?.user?.password;
-
       return session;
     },
     async signIn({ account, profile }) {
-     
-     
-      if (account.provider === "google") {
-        return profile
- 
-      }
-      return true
+      console.log("proooofile",profile)
+      return true;
     },
   },
   adapter: MongoDBAdapter(clientPromise),
@@ -79,3 +82,5 @@ export const authOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+
+

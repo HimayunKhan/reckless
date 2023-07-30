@@ -15,6 +15,9 @@ import FullScreenMobileMenu from "./FullScreenMobileMenu";
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
   const { data } = useSession();
+
+
+  console.log("daataaa",data)
   const [menuopen, setmenuopen] = useState(false);
   const { cart } = useContext(CartContext);
 

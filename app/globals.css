@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+/* styles/globals.css */
+
+/* .productli {
+	@apply text-gray-600 hover:text-black text-sm font-medium border-b-[1px] border-b-gray-400 hover:border-b-gray-700 flex items-center justify-end gap-2 cursor-pointer duration-300 w-full;
+  } */
+  
+/* styles/globals.css */
+
+.productli {
+	@apply text-gray-600 hover:text-black text-sm font-medium border-b-[1px] border-b-gray-400 hover:border-b-gray-700 flex items-center justify-end gap-2 cursor-pointer duration-300 w-full;
+  }
+  
+  /* Other global styles or classes */
+  

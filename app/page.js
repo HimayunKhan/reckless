@@ -1,34 +1,26 @@
 "use client";
+import Banner from "@/components/layouts/Banner";
+import HomeProducts from "@/components/products/HomeProducts";
 import ListProducts from "@/components/products/ListProducts";
 import AuthContext from "@/context/AuthContext";
-import axios from "axios";
 
-import queryString from "query-string";
+
+
 import { useContext, useState } from "react";
 
-// const getProducts = async (searchParams) => {
-//   const urlParams = {
-//     keyword: searchParams.keyword,
-//     page: searchParams.page,
-//     category: searchParams.category,
-//     "price[gte]": searchParams.min,
-//     "price[lte]": searchParams.max,
-//     "ratings[gte]": searchParams.ratings,
-//   };
-
-//   const searchQuery = queryString.stringify(urlParams);
-
-//   const { data } = await axios.get(
-//     `${process.env.API_URL}/api/products?${searchQuery}`
-//   );
-//   return data;
-// };
-
 export default function Home({ searchParams }) {
-  // const productsData = await getProducts(searchParams);
-
-
   const { filteredProducts } = useContext(AuthContext);
 
-  return <ListProducts data={filteredProducts} />;
+  return (
+    <>
+      <div className=" max-w-screen-xl mx-auto">
+        <Banner />
+        <div className="relative md:-mt020 lgl:-mt-32 xl:-mt-60 z-20 mb-10">
+          <HomeProducts data={filteredProducts} />
+        </div>
+      </div>
+
+      {/* <ListProducts data={filteredProducts} /> */}
+    </>
+  );
 }

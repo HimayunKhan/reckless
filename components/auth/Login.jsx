@@ -3,48 +3,40 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
-import { useRouter, useSearchParams } from "next/navigation";
-import { parseCallbackUrl } from "@/helpers/helpers";
 import Image from "next/image";
-import { BsDatabase } from "react-icons/bs";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
-  const params = useSearchParams();
-  const callBackUrl = params.get("callbackUrl");
-
-
-  const callbackUrlss = callBackUrl ? parseCallbackUrl(callBackUrl) : "/";
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const data = await signIn("credentials", {
       email,
       password,
-      callbackUrl: callBackUrl ? parseCallbackUrl(callBackUrl) : "/",
-      // redirect:false
+      redirect: false,
     });
 
-  
-
     if (data?.error) {
-      toast.error(data?.error);
+      toast.error("invalid email or password");
       setEmail("");
       setPassword("");
     }
 
-    if (data?.ok) {
+    if (data?.error == null) {
       toast.success("Login successfull");
+      window.location.replace("/me");
     }
   };
 
   const submitGoogle = async (e) => {
     e.preventDefault();
 
-    signIn("google", { callbackUrlss });
-    // router.push("/");
+    try {
+      await signIn("google", { callbackUrl: "http://localhost:3000/me" });
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+    }
   };
 
   return (
@@ -88,12 +80,15 @@ const Login = () => {
           <hr className="mt-4" />
           <div className="flex justify-center items-center mt-2">
             <button
-              // onClick={() => signIn()}
               onClick={submitGoogle}
-              // onClick={() => signIn("google", { callbackUrlss})}
               className="  bg-black text-white rounded-lg  p-2 text-[24px] "
             >
-              <Image src="/images/googleLogo1.png" width={40} height={40} alt="googleLogo" />
+              <Image
+                src="/images/googleLogo1.png"
+                width={40}
+                height={40}
+                alt="googleLogo"
+              />
             </button>
           </div>
           <p className="text-center mt-5">
