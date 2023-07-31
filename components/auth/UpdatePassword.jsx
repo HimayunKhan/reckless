@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 const UpdatePassword = () => {
   const { error, updatePassword, clearErrors } = useContext(AuthContext);
-
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
@@ -24,6 +23,8 @@ const UpdatePassword = () => {
       currentPassword,
       newPassword,
     });
+
+    
   };
 
   return (

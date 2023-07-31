@@ -53,11 +53,8 @@ export async function GET(request, ctx) {
 export async function PUT(request, context) {
   try {
     dbConnect();
-
     const id = context.params.id;
-
     const orderData = await request.json();
-
     let order = await Order.findById(id);
 
     if (!order) {
@@ -76,24 +73,23 @@ export async function PUT(request, context) {
 
     return NextResponse.json(res);
   } catch (error) {
-    return createErrorResponse(error); // Assuming you have the createErrorResponse function implemented
+    return createErrorResponse(error);
   }
 }
 
+
+
+
 export async function DELETE(request, context) {
-  const { id } = context.params; // Assuming the ID is passed as a parameter
+  const { id } = context.params;
 
   try {
-    dbConnect(); // Assuming this is your database connection function
-
+    dbConnect();
     let order = await Order.findById(id);
-
     if (!order) {
       return new Response("Product not found.", 404);
     }
-
-    await Order.deleteOne({ _id: id }); // Assuming Address is your model
-
+    await Order.deleteOne({ _id: id });
     const res = {
       success: true,
       message: "Order deleted successfully",
@@ -101,6 +97,6 @@ export async function DELETE(request, context) {
 
     return NextResponse.json(res);
   } catch (error) {
-    return createErrorResponse(error); // Assuming you have the createErrorResponse function implemented
+    return createErrorResponse(error);
   }
 }

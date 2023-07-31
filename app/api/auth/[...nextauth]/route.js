@@ -55,8 +55,18 @@ export const authOptions = {
     jwt: async ({ token, user, session, trigger }) => {
       user && (token.user = user);
 
-      if (trigger == "update") {
-        return [...token, ...session.user];
+      // if (trigger == "update") {
+      //   return [...token, ...session.user];
+      // }
+
+
+
+
+      if (trigger === "update") {
+        // Merge session.user properties into token.user
+        for (const key in session.user) {
+          token.user[key] = session.user[key];
+        }
       }
 
       return token;

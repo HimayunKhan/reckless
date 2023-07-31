@@ -25,6 +25,7 @@ const UpdateOrder = ({ order }) => {
   const submitHandler = () => {
     const orderData = { orderStatus };
     updateOrder(order?._id, orderData);
+    window.location.reload()
   };
 
   return (

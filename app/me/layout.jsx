@@ -10,8 +10,8 @@ export default function UserLayout({ children }) {
       </section>
 
       <section className="py-1">
-        <div className="container max-w-screen-xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row -mx-4">
+        <div className="container max-w-screen-xl mx-auto px-4 ">
+          <div className="flex flex-col md:flex-row -mx-4 ">
             <Sidebar />
             <main className="md:w-2/3 lg:w-3/4 px-4 ">
               <article className="border border-gray-200 bg-color1  shadow-testShadow rounded mb-5 p-3 lg:p-5">

@@ -44,7 +44,7 @@ const Header = () => {
   const userIcon = useMemo(
     () => (
       <>
-        {!user ? (
+        {!data ? (
           <Link href="/login">
             <span>
               <FaUserAlt className="text-customGold " size={35} />

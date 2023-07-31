@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import { useSession, mutate } from "next-auth/react";
 import { toast } from "react-toastify";
+import { signOut } from "next-auth/react";
+
 
 const AuthContext = createContext();
 
@@ -15,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   const [updated, setUpdated] = useState(false);
   const { data: session, update } = useSession();
   const [AllProductsData, setAllProductsData] = useState([]);
-  // const [FilteredProducts, setFilteredProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(AllProductsData);
 
  
@@ -23,7 +24,6 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch products data when the component mounts
     allProducts();
   }, []);
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
         toast.success("profile updated successfully");
         setLoading(false);
-        router.push("/login");
+        // router.push("/me");
       }
     } catch (error) {
       console.log("error", error);
@@ -132,7 +132,9 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.success) {
         toast.success("password updated successfully");
-        router.replace("/me");
+        signOut();
+        // router.replace("/me");
+
       }
     } catch (error) {
       console.log(error.response);
@@ -182,7 +184,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (data) {
-        router.push("/me");
+        setUpdated(true)
+        toast.success("New address added successfully")
+        router.replace("/me");
       }
     } catch (error) {
       setError(error?.response?.data?.message);

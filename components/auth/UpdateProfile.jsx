@@ -6,12 +6,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
 const UpdateProfile = () => {
-  const { user, error, loading, updateProfile, clearErrors } =
-    useContext(AuthContext);
+  const { user, error, loading, updateProfile, clearErrors } = useContext(AuthContext);
 
+  // console.log("hihih",user?.avatar?.url )
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState("" );
   const [avatarPreview, setAvatarPreview] = useState("/images/default.png");
 
   useEffect(() => {

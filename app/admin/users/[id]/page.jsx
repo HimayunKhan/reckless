@@ -1,9 +1,9 @@
 import axios from "axios";
-import React from "react";
-
+import React, { Suspense } from "react";
 import { cookies } from "next/headers";
 import UpdateOrder from "@/components/admin/UpdateOrder";
 import UpdateUser from "@/components/admin/UpdateUser";
+import Loader from "@/components/layouts/Loader";
 
 const getUser = async (id) => {
   const nextCookies = cookies();
@@ -24,9 +24,18 @@ const getUser = async (id) => {
 
 const AdminUserDetailsPage = async ({ params }) => {
   const data = await getUser(params?.id);
-  
 
-  return <UpdateUser user={data?.userdetails} />;
+  return (
+    <Suspense
+      fallback={
+        <div className="text-center text-32  text-black">
+          <Loader />
+        </div>
+      }
+    >
+      <UpdateUser user={data?.userdetails} />;
+    </Suspense>
+  );
 };
 
 export default AdminUserDetailsPage;

@@ -34,13 +34,13 @@ export async function POST(request, response) {
       // Include the `user` field in the `Address.create` call
     });
 
-    const res = {
+    const response = {
       success: true,
       message: "Address created successfully",
       data: addressDoc,
     };
 
-    return NextResponse.json(res, { status: 200 });
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
     return createErrorResponse(error);
   }
@@ -53,7 +53,7 @@ export async function GET(request, response) {
     const user = session?.user?.id;
     const AllAddress = await Address.find({user});
 
-    const res = {
+    const response = {
       success: true,
       message: "Address fetched successfully",
       data: {
@@ -61,7 +61,7 @@ export async function GET(request, response) {
       },
     };
 
-    return NextResponse.json(res);
+    return NextResponse.json(response);
   } catch (error) {
     return createErrorResponse(error);
   }

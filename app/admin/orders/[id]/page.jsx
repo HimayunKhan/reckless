@@ -1,9 +1,9 @@
+
 import axios from "axios";
-import React from "react";
+import React, { Suspense } from "react";
 import { cookies } from "next/headers";
 import UpdateOrder from "@/components/admin/UpdateOrder";
-
-
+import Loader from "@/components/layouts/Loader";
 
 const getOrder = async (id) => {
   const nextCookies = cookies();
@@ -20,11 +20,22 @@ const getOrder = async (id) => {
   return data;
 };
 
-
-
 const AdminOrderDetailsPage = async ({ params }) => {
   const data = await getOrder(params?.id);
-  return <UpdateOrder order={data?.orderdetails} />;
+
+
+  return (
+    // Wrap the component in Suspense and specify a fallback (loading) component to be shown while the Cart component is loading.
+    <Suspense
+      fallback={
+        <div className="text-center text-32  text-black">
+          <Loader />
+        </div>
+      }
+    >
+      <UpdateOrder order={data?.orderdetails} />;
+    </Suspense>
+  );
 };
 
 export default AdminOrderDetailsPage;

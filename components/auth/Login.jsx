@@ -18,14 +18,14 @@ const Login = () => {
     });
 
     if (data?.error) {
-      toast.error("invalid email or password");
+      toast.error("Invalid Email or Password");
       setEmail("");
       setPassword("");
     }
 
     if (data?.error == null) {
-      toast.success("Login successfull");
       window.location.replace("/me");
+      toast.success("Login successfull");
     }
   };
 

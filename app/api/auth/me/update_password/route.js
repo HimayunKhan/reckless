@@ -39,12 +39,11 @@ dbConnect();
 router.put(async (req, res) => {
   try {
     const { currentPassword, newPassword } = await req.json();
-
     const session = await getServerSession(authOptions);
     const userID = session?.user?.id;
-  
-
     const user = await User.findById(userID).select("+password");
+
+    console.log("usewww",user)
 
     const isPasswordMatched = await bcrypt.compare(
       currentPassword,
@@ -56,6 +55,9 @@ router.put(async (req, res) => {
     }
 
     user.password = newPassword;
+
+
+    console.log("hihihihhhihi",user)
     await user.save();
 
     const res = {
