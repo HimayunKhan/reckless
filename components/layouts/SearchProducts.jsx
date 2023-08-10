@@ -8,7 +8,7 @@ const SearchProducts = ({ item }) => {
         <p className="text-xs -mb-1">
           {item?.seller}_{item?.category}
         </p>
-        <p className="text-lg font-medium">{item.name}</p>
+        <p className="text-lg font-medium">{item.username}</p>
         <p className="text-xs">{item?.description?.substring(0, 100)}</p>
         <p className="text-sm flex items-center gap-1">
           price:{" "}

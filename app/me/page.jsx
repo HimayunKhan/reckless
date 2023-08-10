@@ -23,7 +23,7 @@ const ProfilePage = async () => {
   return (
     <Suspense fallback={<div className="text-center text-32  text-black"><Loader/></div>}>
       <Profile addresses={addresses} />
-    </Suspense>
+    </Suspense> 
   )
 }
 

@@ -6,18 +6,17 @@ import Link from "next/link";
 import SearchProducts from "./SearchProducts";
 
 const Search = () => {
-  const {AllProductsData } = useContext(AuthContext);
+  const { AllProductsData } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
- 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };
 
   useEffect(() => {
-    const filtered = AllProductsData.filter((item) =>
-      item.name.toLocaleLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = AllProductsData?.filter((item) =>
+      item?.name?.toLocaleLowerCase().includes(searchQuery?.toLowerCase())
     );
     setFilteredProducts(filtered);
   }, [searchQuery]);

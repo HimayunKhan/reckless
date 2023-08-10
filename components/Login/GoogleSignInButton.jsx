@@ -13,7 +13,6 @@ const GoogleSignInButton = () => {
     // e.preventDefault();
 
     signIn("google");
-	console.log("gooooogle login")
     // router.push("/");
   };
   return (

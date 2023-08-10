@@ -29,7 +29,6 @@ const AdminOrdersPage = async ({ searchParams }) => {
   const orders = await getOrders(searchParams);
 
   return <Orders orders={orders} />;
-  
 };
 
 export default AdminOrdersPage;

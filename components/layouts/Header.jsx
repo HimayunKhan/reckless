@@ -74,23 +74,19 @@ const Header = () => {
       <>
         {menuopen && <FullScreenMobileMenu setopen={setmenuopen} user={user} />}
 
-        <header className="bg-black ">
+        <header className="bg-black border-b border-gray-600 ">
           <div className="container max-w-screen-xl mx-auto px-4">
             <div className="flex flex-wrap items-center">
               <div className="flex-shrink-0 mr-5">
                 <a href="/">
                   <Image
-                    className="w-[200px] md:w-[240px]"
+                    className="w-[200px] md:w-[240px] h-[70px]"
                     src="/images/chokhaLogo.png"
-                    height={80}
+                    height={40}
                     width={160}
                     alt="chokhaLogo"
                     priority={true}
-                    // style={{
-                    //   objectFit: "contain",
-                    //   width: "auto",
-                    //   height: "auto",
-                    // }}
+              
                   />
                 </a>
               </div>

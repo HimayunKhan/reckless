@@ -37,7 +37,6 @@ router.post(async (req, res) => {
       };
     });
 
-    //   const shippingInfo = body?.shippingInfo;
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],

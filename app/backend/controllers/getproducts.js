@@ -1,47 +1,3 @@
-// import dbConnect from "@/app/backend/config/dbConnect";
-// import ProductModel from "@/app/backend/models/product";
-// import APIFilters from "@/app/backend/utils/APIFilters";
-// import { NextResponse } from "next/server";
-
-
-
-// export const nextproducts= async( request,response)=>{
-
-// 	try {
-	 
-  
-// 	  const { searchParams } = new URL(request?.url);
-// 	  const searchQuery = Object.fromEntries(searchParams.entries());
-  
-// 	  const resPerPage = 2;
-// 	  const productsCount = await ProductModel.countDocuments();
-// 	  const apiFilters = new APIFilters(ProductModel.find(), searchQuery)
-// 		.search()
-// 		.filter();
-  
-// 	  let products = await apiFilters.query;
-// 	  const filteredProductsCount = products.length;
-// 	  apiFilters.pagination(resPerPage);
-  
-// 	  products = await apiFilters.query.clone();
-  
-// 	  const res= {
-// 		success: true,
-// 		message: "Products fetched successfully",
-// 		data: {
-// 		  productsCount,
-// 		  resPerPage,
-// 		  filteredProductsCount,
-// 		  products,
-// 		},
-// 	  };
-  
-// 	  return NextResponse.json(res);
-// 	} catch (error) {
-// 	  return NextResponse.error(error);
-// 	}
-  
-//   }
 
 import { NextResponse } from 'next/server';
 import ProductModel from '@/app/backend/models/product';
@@ -79,7 +35,6 @@ export const nextproducts = async (request, response) => {
 
     return  NextResponse.json(res);
   } catch (error) {
-	console.log(error)
 
 	const errorResponse = {
 		success: false,

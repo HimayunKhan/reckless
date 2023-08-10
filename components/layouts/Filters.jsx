@@ -14,11 +14,9 @@ const Filters = () => {
   const [ratings, setRatings] = useState("");
   const [selectedRatings, setSelectedRatings] = useState("");
 
-  // Use useRef to store the previous filtered state
   const prevFilteredProducts = useRef(filteredProducts);
 
   useEffect(() => {
-    // Perform the filtering logic here based on the provided criteria
     const filteredResults = AllProductsData.filter((product) => {
       const withinPriceRange =
         (!minPrice || product.price >= minPrice) &&
@@ -35,7 +33,6 @@ const Filters = () => {
 
     setFilteredProducts(filteredResults);
 
-    // Update the previous filtered state whenever new filters are applied
     prevFilteredProducts.current = filteredResults;
   }, [
     minPrice,
@@ -48,7 +45,6 @@ const Filters = () => {
   ]);
 
   const handleResetFilters = () => {
-    // Reset all filters and revert to the previous filtered state
     setMinPrice("");
     setMaxPrice("");
     setCategory("");
@@ -57,8 +53,7 @@ const Filters = () => {
     setFilteredProducts(prevFilteredProducts.current);
   };
 
-// Rest of the code remains the same
-  // ...
+
 
   return (
     <div className="bg-gray-100 p-4 shadow-md rounded-md">
@@ -83,7 +78,6 @@ const Filters = () => {
         <div className="col-span-2">
           <p className="font-semibold">Category</p>
           <div className="flex flex-col">
-            {/* Category radio buttons as before */}
 
             <label className="">
               <input
@@ -131,7 +125,6 @@ const Filters = () => {
               <span className="ml-2">Laptops</span>
             </label>
 
-            {/* Add other category radio buttons as needed */}
           </div>
         </div>
 

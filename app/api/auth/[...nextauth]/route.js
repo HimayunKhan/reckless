@@ -31,19 +31,17 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        mongooseConnect(); // Connect to the database
+        mongooseConnect(); 
         const { email, password } = credentials;
         const user = await User.findOne({ email }).select("+password");
 
         if (!user) {
-          // throw new Error("Invalid Email or Password");
           return null;
         }
 
         const isPasswordMatched = await bcrypt.compare(password, user.password);
 
         if (!isPasswordMatched) {
-          // throw new Error("Invalid Email or Password");
           return null;
         }
 
@@ -63,7 +61,6 @@ export const authOptions = {
 
 
       if (trigger === "update") {
-        // Merge session.user properties into token.user
         for (const key in session.user) {
           token.user[key] = session.user[key];
         }
@@ -77,7 +74,6 @@ export const authOptions = {
       return session;
     },
     async signIn({ account, profile }) {
-      console.log("proooofile",profile)
       return true;
     },
   },

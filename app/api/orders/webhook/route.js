@@ -1,12 +1,9 @@
 import dbConnect from "@/app/backend/config/dbConnect";
 import createErrorResponse from "@/app/backend/middlewares/errors";
 import { createRouter } from "next-connect";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { buffer } from "node:stream/consumers";
 import Stripe from "stripe";
-import getRawBody from "raw-body";
 import Order from "@/app/backend/models/order";
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
@@ -41,7 +38,6 @@ async function getCartItems(line_items) {
 router.post(async (req, res) => {
   try {
     const rawBody = await buffer(req.body);
-    console.log("rawBody",rawBody)
     const signature = req.headers.get("stripe-signature");
 
     const event = stripe.webhooks.constructEvent(
@@ -56,7 +52,6 @@ router.post(async (req, res) => {
       const line_items = await stripe.checkout.sessions.listLineItems(
         event.data.object.id
       );
-      console.log("line_itemssssssssssssss",line_items);
 
       const orderItems = await getCartItems(line_items);
       const userId = session.client_reference_id;
@@ -70,7 +65,6 @@ router.post(async (req, res) => {
       };
 
 
-      // console.log("paymentInfo",paymentInfo)
 
       const orderData = {
         user: userId,
@@ -78,11 +72,9 @@ router.post(async (req, res) => {
         paymentInfo,
         orderItems,
       };
-      // console.log("orderData",orderData)
       
       const order = await Order.create(orderData);
      
-      console.log("orderDetailsssssssss",order)
 
       const response = {
         success: true,
@@ -90,7 +82,6 @@ router.post(async (req, res) => {
         order
       };
       return NextResponse.json(response);
-      // return new Response("huhuhuu")
     }
   } catch (error) {
     return createErrorResponse(error);

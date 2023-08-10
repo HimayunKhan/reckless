@@ -30,7 +30,6 @@ const Register = () => {
   return (
     <div className="flex justify-center">
       <div
-        // style={{ maxWidth: "480px" }}
         className="  bg-[#F5F5F3] w-full md:w-[40%] my-10 mx-4 p-4 md:p-7   rounded-lg  shadow-testShadow"
       >
         <form onSubmit={submitHandler}>

@@ -1,24 +1,3 @@
-// import React from "react";
-// import axios from "axios";
-
-// import UpdateProduct from "@/components/admin/UpdateProduct";
-
-// const getProduct = async (id) => {
-//   const { data } = await axios.get(
-//     `${process.env.API_URL}/api/admin/products/${id}`
-//   );
-
-//   return data?.data;
-// };
-
-// const HomePage = async ({ params }) => {
-//   const data = await getProduct(params.id);
-
-//   return <UpdateProduct data={data} />;
-// };
-
-// export default HomePage;
-
 "use client";
 import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
@@ -35,7 +14,6 @@ const getProduct = async (id) => {
     );
     return data?.data;
   } catch (error) {
-    // Handle any errors here, e.g., display an error message or fallback UI
     console.error("Error fetching product:", error);
     return null;
   }

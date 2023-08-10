@@ -46,14 +46,11 @@ export async function PUT(request, context) {
       return new Response("No user with this id.", 404);
     }
 
-    console.log("iddddsss", id);
-    console.log("dddddddddd", userData);
 
     user = await User.findByIdAndUpdate(id, userData.userData, {
       new: true,
     });
 
-    console.log("userrrr", user);
 
     const res = {
       success: true,

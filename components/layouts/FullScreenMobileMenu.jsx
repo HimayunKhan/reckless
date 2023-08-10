@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 
@@ -8,12 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 // import AuthContext from "@/context/AuthContext";
 
-
-
-const FullScreenMobileMenu = ({ setopen,user }) => {
+const FullScreenMobileMenu = ({ setopen, user }) => {
   const router = useRouter();
-   
-
 
   const handleLinkClick = (path) => {
     setopen(false);
@@ -23,7 +19,9 @@ const FullScreenMobileMenu = ({ setopen,user }) => {
   return (
     <div className="fixed inset-0 z-[90] flex flex-col items-center gap-10 bg-dark/80 py-12 text-5xl text-white backdrop-blur-md">
       <div onClick={() => handleLinkClick("/")}>Home</div>
-      <div onClick={() => handleLinkClick("/me")}>{user?"profile":"Login"}</div>
+      <div onClick={() => handleLinkClick("/me")}>
+        {user ? "profile" : "Login"}
+      </div>
       <div onClick={() => handleLinkClick("/blog")} target="_blank">
         Blog
       </div>

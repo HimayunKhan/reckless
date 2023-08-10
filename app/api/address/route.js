@@ -1,9 +1,7 @@
 import dbConnect from "@/app/backend/config/dbConnect";
-import { isAuthenticatedUser } from "@/app/backend/middlewares/auth";
 import createErrorResponse from "@/app/backend/middlewares/errors";
 import Address from "@/app/backend/models/address";
 import { NextResponse } from "next/server";
-import { getSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
@@ -20,7 +18,6 @@ export async function POST(request, response) {
       zipCode,
       country,
 
-      // Add the `user` field to the destructured assignment
     } = await request.json();
 
     const addressDoc = await Address.create({
@@ -31,7 +28,7 @@ export async function POST(request, response) {
       zipCode,
       country,
       user,
-      // Include the `user` field in the `Address.create` call
+     
     });
 
     const response = {

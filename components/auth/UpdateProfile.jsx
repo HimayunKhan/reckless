@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const UpdateProfile = () => {
   const { user, error, loading, updateProfile, clearErrors } = useContext(AuthContext);
 
-  // console.log("hihih",user?.avatar?.url )
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("" );

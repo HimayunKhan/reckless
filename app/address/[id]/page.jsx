@@ -3,8 +3,6 @@ import React from "react";
 import { cookies } from "next/headers";
 import UpdateAddress from "@/components/user/UpdateAddress";
 
-
-
 const getAddress = async (id) => {
   const nextCookies = cookies();
   const nextAuthSessionToken = nextCookies.get("next-auth.session-token");

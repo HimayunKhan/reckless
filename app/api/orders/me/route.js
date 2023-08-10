@@ -6,9 +6,6 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import Order from "@/app/backend/models/order";
 import APIFilters from "@/app/backend/utils/APIFilters";
-import Address from "@/app/backend/models/address";
-import User from "@/app/backend/models/user";
-import { myOrders } from "@/app/backend/controllers/orderControllers";
 
 
 const router = createRouter();

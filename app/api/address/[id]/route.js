@@ -57,7 +57,7 @@ export async function PUT(request, context) {
   }
 }
 
-export async function DELETE(request, context) {
+export async function (request, context) {
   const { id } = context.params; // Assuming the ID is passed as a parameter
 
   try {
@@ -72,6 +72,6 @@ export async function DELETE(request, context) {
 
     return NextResponse.json(res);
   } catch (error) {
-    return createErrorResponse(error); // Assuming you have the createErrorResponse function implemented
+    return createErrorResponse(error); 
   }
 }
