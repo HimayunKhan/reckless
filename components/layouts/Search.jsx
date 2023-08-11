@@ -23,7 +23,7 @@ const Search = () => {
 
   return (
     <>
-      <div className="flex  h-10 hidden md:inline-flex w-[40%] items-center justify-between relative">
+      <div className="flex  h-10  md:inline-flex w-[40%] items-center justify-between relative">
         <input
           onChange={handleSearch}
           value={searchQuery}
