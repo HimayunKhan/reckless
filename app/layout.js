@@ -3,7 +3,7 @@ import "./globals.css";
 import { GlobalProvider } from "./GlobalProvider";
 import Providers from "@/components/Providers";
 import Footer from "@/components/layouts/Footer";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import BottomHeader from "@/components/layouts/BottomHeader";
 
 
