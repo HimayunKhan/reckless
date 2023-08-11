@@ -36,7 +36,7 @@ const Search = () => {
         </span>
         {/* ========== Searchfield ========== */}
         {searchQuery && (
-          <div className=" mild-black absolute z-30 left-0 top-12 w-full mx-auto max-h-96 bg-color1 rounded-lg overflow-y-scroll cursor-pointer text-black">
+          <div className="  absolute z-30 left-0 top-12 w-full mx-auto max-h-96 bg-color1 rounded-lg overflow-y-scroll cursor-pointer text-black">
             {filteredProducts.length > 0 ? (
               <>
                 {searchQuery &&
