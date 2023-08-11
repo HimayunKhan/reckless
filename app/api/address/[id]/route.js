@@ -57,7 +57,7 @@ export async function PUT(request, context) {
   }
 }
 
-export async function (request, context) {
+export async function DELETE(request, context) {
   const { id } = context.params; // Assuming the ID is passed as a parameter
 
   try {
