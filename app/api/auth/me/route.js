@@ -18,11 +18,11 @@ cloudinary.config({
 });
 
 const router = createRouter();
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 async function uploadPhotosToCloudinary(path, name) {
   const pic = [
