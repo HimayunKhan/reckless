@@ -1,23 +1,34 @@
-import axios from "axios";
-import React from "react";
-import { cookies } from "next/headers";
-import UpdateAddress from "@/components/user/UpdateAddress";
+// import axios from "axios";
+// import React from "react";
+// import { cookies } from "next/headers";
+// import UpdateAddress from "@/components/user/UpdateAddress";
 
-const getAddress = async (id) => {
-  const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
-  const { data } = await axios.get(`${process.env.API_URL}/api/address/${id}`, {
-    headers: {
-      Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
-    },
-  });
-  return data?.AllAddress;
-};
+// const getAddress = async (id) => {
+//   const nextCookies = cookies();
+//   const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+//   const { data } = await axios.get(`${process.env.API_URL}/api/address/${id}`, {
+//     headers: {
+//       Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+//     },
+//   });
+//   return data?.AllAddress;
+// };
 
-const UpdateAddressPage = async ({ params }) => {
-  const address = await getAddress(params?.id);
+// const UpdateAddressPage = async ({ params }) => {
+//   const address = await getAddress(params?.id);
 
-  return <UpdateAddress id={params?.id} address={address} />;
-};
+//   return <UpdateAddress id={params?.id} address={address} />;
+// };
 
-export default UpdateAddressPage;
+// export default UpdateAddressPage;
+
+
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>page</div>
+  )
+}
+
+export default page
