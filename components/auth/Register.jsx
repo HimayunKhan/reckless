@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div className="flex justify-center">
       <div
-        className="  bg-[#F5F5F3] w-full md:w-[40%] my-10 mx-4 p-4 md:p-7   rounded-lg  shadow-testShadow"
+        className="  bg-[#F5F5F3] w-full md:w-[40%] my-10 mx-4 p-4 md:p-7   rounded-lg  "
       >
         <form onSubmit={submitHandler}>
           <h2 className="mb-5 text-center text-3xl font-bold">SIGN UP</h2>

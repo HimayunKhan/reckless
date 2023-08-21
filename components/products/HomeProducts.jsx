@@ -25,7 +25,7 @@ const HomeProducts = ({ data }) => {
         
         <div
           key={item?._id}
-          className="w-full bg-color1 shadow-testShadow text-black border border-gray-300 rounded-lg group overflow-hidden"
+          className="w-full bg-color1  text-black border border-gray-300 rounded-lg group overflow-hidden"
         >
           <div className="w-full h-[260px] relative">
             <Link href={`/product/${item?._id}`}>

@@ -21,7 +21,7 @@ const Sidebar = () => {
               {" "}
               <Link
                 href="/admin/products/new"
-                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md  mb-2"
               >
                 New Product <span className="text-red-500">(Admin)</span>
               </Link>
@@ -31,7 +31,7 @@ const Sidebar = () => {
               {" "}
               <Link
                 href="/admin/products"
-                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md  mb-2"
               >
                 All Products <span className="text-red-500">(Admin)</span>
               </Link>
@@ -41,7 +41,7 @@ const Sidebar = () => {
               {" "}
               <Link
                 href="/admin/orders"
-                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md  mb-2"
               >
                 All Orders <span className="text-red-500">(Admin)</span>
               </Link>
@@ -51,7 +51,7 @@ const Sidebar = () => {
               {" "}
               <Link
                 href="/admin/users"
-                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+                className="block bg-black text-customGold px-3 py-2  hover:bg-customGold hover:text-black rounded-md  mb-2"
               >
                 All Users <span className="text-red-500">(Admin)</span>
               </Link>
@@ -71,7 +71,7 @@ const Sidebar = () => {
           >
             <Link
               href="/me"
-              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md  mb-2"
             >
               Your Profile
             </Link>
@@ -87,7 +87,7 @@ const Sidebar = () => {
           >
             <Link
               href="/me/orders"
-              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md  mb-2"
             >
               Orders
             </Link>
@@ -103,7 +103,7 @@ const Sidebar = () => {
           >
             <Link
               href="/me/update"
-              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md  mb-2"
             >
               Update Profile
             </Link>
@@ -119,7 +119,7 @@ const Sidebar = () => {
           >
             <Link
               href="/me/update_password"
-              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md shadow-testShadow mb-2"
+              className="block px-3 py-2  bg-black text-customGold hover:bg-customGold hover:text-black rounded-md  mb-2"
             >
               Update Password
             </Link>
@@ -135,7 +135,7 @@ const Sidebar = () => {
             // className="flex flex-col mdl:flex-row justify-center items-center gap-4 pb-20"
           >
             <button
-              className=" w-full text-left block px-3 py-2  bg-black text-customGold hover:bg-customGold  hover:text-black rounded-md shadow-testShadow mb-2"
+              className=" w-full text-left block px-3 py-2  bg-black text-customGold hover:bg-customGold  hover:text-black rounded-md  mb-2"
               onClick={logoutHandler}
             >
               Logout

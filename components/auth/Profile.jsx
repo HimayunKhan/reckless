@@ -26,7 +26,7 @@ const Profile = ({ addresses }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <figure className="flex items-start sm:items-center bg-color1 shadow-test2Shadow rounded-md p-4">
+        <figure className="flex items-start sm:items-center bg-color1  rounded-md p-4">
           <div className="relative">
             <Image
               className="w-16 h-16 rounded-full mr-4"
@@ -62,7 +62,7 @@ const Profile = ({ addresses }) => {
         transition={{ duration: 0.1 }}
       >
         <Link href={"/address/new"}>
-          <button className="px-4 py-2 inline-block text-black border border-black rounded-lg hover:bg-gray-100 shadow-test2Shadow bg-color1">
+          <button className="px-4 py-2 inline-block text-black border border-black rounded-lg hover:bg-gray-100  bg-color1">
             Add new address
           </button>
         </Link>

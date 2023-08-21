@@ -54,7 +54,7 @@ const UpdateProfile = () => {
     <>
       <div
         style={{ maxWidth: "480px" }}
-        className="mt-1 mb-20 p-4 md:p-7 mx-auto rounded shadow-testShadow bg-color1"
+        className="mt-1 mb-20 p-4 md:p-7 mx-auto rounded  bg-color1"
       >
         <form onSubmit={submitHandler}>
           <h2 className="mb-5 text-3xl  text-center font-semibold">

@@ -97,7 +97,7 @@ const Cart = () => {
                 <div className="container max-w-screen-xl mx-auto px-4 ">
                   <div className="flex flex-col md:flex-row gap-4">
                     <main className="md:w-3/4 ">
-                      <article className="border border-gray-200  shadow-sm rounded mb-5 p-3 lg:p-5 shadow-test2Shadow bg-color1">
+                      <article className="border border-gray-200  shadow-sm rounded mb-5 p-3 lg:p-5  bg-color1">
                         {cart?.cartItems?.map((cartItem) => (
                           <div key={cartItem?.image}>
                             <div className="flex flex-wrap lg:flex-row gap-5  mb-4">
@@ -193,7 +193,7 @@ const Cart = () => {
                       </article>
                     </main>
                     <aside className="md:w-1/4 ">
-                      <article className="border border-gray-200 bg-color1 shadow-sm rounded mb-5 p-3 lg:p-5 shadow-test2Shadow">
+                      <article className="border border-gray-200 bg-color1 shadow-sm rounded mb-5 p-3 lg:p-5 ">
                         <ul className="mb-5">
                           <li className="flex justify-between text-gray-600  mb-1">
                             <span>Amount before Tax:</span>

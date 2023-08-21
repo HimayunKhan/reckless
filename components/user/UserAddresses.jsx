@@ -10,7 +10,7 @@ const UserAddresses = ({ addresses }) => {
   return addresses?.map((address) => (
     <Link href={`/address/${address._id}`} key={address?._id}>
       <div className="mb-5 gap-4">
-        <figure className="w-full  flex align-center bg-color1 p-4 rounded-md cursor-pointer shadow-test2Shadow ">
+        <figure className="w-full  flex align-center bg-color1 p-4 rounded-md cursor-pointer  ">
           <div className="mr-3">
             <span className="flex items-center justify-center text-yellow-500 w-12 h-12 bg-white rounded-full shadow mt-2">
             <FaMapMarkerAlt />

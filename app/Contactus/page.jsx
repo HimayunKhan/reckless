@@ -68,14 +68,14 @@ const Contact = () => {
         <div className="h-500">
           <p className="  text-center font-medium text-green-500"></p>
 
-          <form className="w-full md:w-[40%] mx-auto  rounded-lg shadow-testShadow m-20">
+          <form className="w-full md:w-[40%] mx-auto  rounded-lg  m-20">
             <h1 className="font-titleFont  text-3xl text-center text-green-500 p-8">
               {successMsg}
             </h1>
           </form>
         </div>
       ) : (
-        <form className="w-full md:w-[40%] mx-auto pt-10 rounded-lg shadow-testShadow m-20">
+        <form className="w-full md:w-[40%] mx-auto pt-10 rounded-lg  m-20">
           <h1 className="font-titleFont font-semibold text-3xl text-center">
             Fill up a Form
           </h1>

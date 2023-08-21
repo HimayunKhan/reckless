@@ -1,26 +1,16 @@
 
 
-// import Loader from "@/components/layouts/Loader";
-// import React, { lazy, Suspense } from "react";
+import Loader from "@/components/layouts/Loader";
+import React, { lazy, Suspense } from "react";
 
-// const LazyProductDetailsLoader = lazy(() => import("@/components/products/ProductDetailsLoader"));
+const LazyProductDetailsLoader = lazy(() => import("@/components/products/ProductDetailsLoader"));
 
-// const ProductDetailsPage = ({ params }) => {
-//   return (
-//     <Suspense fallback={<div className="text-center text-32  text-black"><Loader/></div>}>
-//       <LazyProductDetailsLoader productId={params.id} />
-//     </Suspense>
-//   );
-// };
-
-// export default ProductDetailsPage;
-
-import React from 'react'
-
-const page = () => {
+const ProductDetailsPage = ({ params }) => {
   return (
-    <div>page</div>
-  )
-}
+    <Suspense fallback={<div className="text-center text-32  text-black"><Loader/></div>}>
+      <LazyProductDetailsLoader productId={params.id} />
+    </Suspense>
+  );
+};
 
-export default page
+export default ProductDetailsPage;

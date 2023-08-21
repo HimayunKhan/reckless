@@ -31,8 +31,8 @@ module.exports = {
         color1:"#F5F5F3",
       },
       boxShadow: {
-        testShadow: "0px 0px 54px -13px rgba(0,0,0,0.7)",
-        test2Shadow:"  rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;"
+        // testShadow: "0px 0px 54px -13px rgba(0,0,0,0.7)",
+        // test2Shadow:"  rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;"
       },
     },
   },

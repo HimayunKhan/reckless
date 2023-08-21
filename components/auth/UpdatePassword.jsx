@@ -31,7 +31,7 @@ const UpdatePassword = () => {
     <>
       <div
         style={{ maxWidth: "480px" }}
-        className="mt-5 mb-20 p-4 md:p-7 mx-auto rounded bg-color1 shadow-testShadow"
+        className="mt-5 mb-20 p-4 md:p-7 mx-auto rounded bg-color1 "
       >
         <form onSubmit={submitHandler}>
           <h2 className="mb-5 text-3xl text-center font-semibold">UPDATE PASSWORD</h2>
