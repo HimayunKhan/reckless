@@ -92,7 +92,7 @@ const Login = () => {
             </button>
           </div>
           <p className="text-center mt-5">
-            Don't have an account?{" "}
+            Dont have an account?{" "}
             <Link href="/register" className="text-[#ddb148]">
               Register
             </Link>
