@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       <div className=" max-w-screen-xl mx-auto ">
-        {/* <Banner /> */}
+        <Banner />
         <div className="relative md:-mt-10 lgl:-mt-32 xl:-mt-55 z-20 mb-10">
           <Suspense
             fallback={
